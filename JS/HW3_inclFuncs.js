@@ -14,12 +14,12 @@ P.S. Функции вызывать не обязательно*/
 
 let numberOfFilms;
 
-function start(){
+function start() {
 	numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
 
 	while (numberOfFilms == '' || numberOfFilms == null || isNaN(numberOfFilms)) {
 		numberOfFilms = +prompt('Сколько фильмов вы уже посмотрели?', '');
-	} 
+	}
 }
 
 start();
@@ -53,7 +53,7 @@ rememberMyFilms();
 function determineMovieLevel() {
 	if (personalMovieDB.count < 10) {
 		console.log("Просмотрено довольно мало фильмов");
-	} else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30 ) {
+	} else if (personalMovieDB.count >= 10 && personalMovieDB.count < 30) {
 		console.log("Вы классический зритель");
 	} else if (personalMovieDB.count >= 30) {
 		console.log("Вы киноман");
@@ -70,13 +70,12 @@ function showMyDB(hidden) {
 	}
 }
 
-showMyDB(personalMovieDB.private);   
+showMyDB(personalMovieDB.private);
 
 function writeYourGenres() {
-	for(let i = 0; i < 3; i++) {
-		personalMovieDB.genres[i] = prompt(`Ваш любимый жанр под номером ${i + 1}`, ''); 
+	for (let i = 0; i < 3; i++) {
+		personalMovieDB.genres[i] = prompt(`Ваш любимый жанр под номером ${i + 1}`, '');
 	}
 }
 
 writeYourGenres();
-
