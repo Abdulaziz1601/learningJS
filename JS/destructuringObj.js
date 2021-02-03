@@ -7,10 +7,20 @@ const options = {
     colors: {
         border: 'black',
         bg: 'red'
+    },
+    makeTest: function () {
+        console.log("Test");
     }
 };
+options.makeTest();
 
-Object.keys(options);
+const {border: nBorder, bg: nBg} = options.colors; //Acces nested object and change the name of variable
+console.log(nBorder); // black 
+
+// console.log(Object.keys(options)); //[ 'name', 'width', 'height', 'colors' ]
+// // Array of elems
+// console.log(Object.keys(options).length); //Length of an Array 4
+
 
 // console.log(options.name); // test
 
