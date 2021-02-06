@@ -13,6 +13,7 @@
 "Любимый жанр #(номер по порядку, начиная с 1) - это (название из массива)"*/
 
 'use strict';
+
 const personalMovieDB = {
 	count: 0,
 	movies: {},
@@ -22,8 +23,7 @@ const personalMovieDB = {
     start: function () {
         personalMovieDB.count = +prompt('Сколько фильмов вы уже посмотрели?', '');
     
-        while (personalMovieDB.count == '' || personalMovieDB.count == null || isNaN
-        (personalMovieDB.count)) {
+        while (personalMovieDB.count == '' || personalMovieDB.count == null || isNaN (personalMovieDB.count)) {
             personalMovieDB.count = +prompt('Сколько фильмов вы уже посмотрели?', '');
         }
     },
@@ -73,6 +73,7 @@ const personalMovieDB = {
             // } else {
             //     personalMovieDB.genres[i] = genres;
             // }
+            // Alternative way with commas
             let genres =  prompt(`Enter your genre with commas`);
 
             if (genres == null || genres === "" ){
@@ -87,7 +88,6 @@ const personalMovieDB = {
             console.log(`Любимый жанр ${i+1} - это ${element}`);   
         });
     }
-    
 };
 
 // personalMovieDB.start();
