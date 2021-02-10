@@ -1,6 +1,6 @@
 "use strict";
 
-const btn = document.querySelector('button'),
+const btns = document.querySelectorAll('button'),
       overlay = document.querySelector('.overlay');
 // btn.onclick = function() {
 //     alert('Click');
@@ -35,9 +35,12 @@ const deleteElement = (e) => {
 };
 // If we remove an event listener, func must be same, so we assigned it to the variable
 // Event Bubbling
-btn.addEventListener('click', deleteElement);// arg2 is just reference to deleteElement() function
-// btn.removeEventListener('click', deleteElement); // parenthesis same as above
-overlay.addEventListener('click', deleteElement);
+// btn.addEventListener('click', deleteElement);// arg2 is just reference to deleteElement() function
+// // btn.removeEventListener('click', deleteElement); // parenthesis same as above
+// overlay.addEventListener('click', deleteElement);
+
+btns.forEach(btn => {
+    btn.addEventListener('click', deleteElement, {once: true});});
 
 const link = document.querySelector('a');
 
