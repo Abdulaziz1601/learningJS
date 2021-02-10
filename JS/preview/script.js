@@ -1,7 +1,7 @@
 "use strict";
 
-const btn = document.querySelector('button');
-
+const btn = document.querySelector('button'),
+      overlay = document.querySelector('.overlay');
 // btn.onclick = function() {
 //     alert('Click');
 // };
@@ -23,15 +23,27 @@ const btn = document.querySelector('button');
 //     event.target.remove();
 //     // console.log('Hover');
 // });
-let i = 0;
+// let i = 0;
 const deleteElement = (e) => {
-    console.log(e.target);
-    i++;
-    if(i == 1) {
-        btn.removeEventListener('click', deleteElement);
-    }
+    console.log(e.currentTarget);
+    console.log(e.type);
+    
+    // i++;
+    // if(i == 1) {
+    //     btn.removeEventListener('click', deleteElement);
+    // }
 };
 // If we remove an event listener, func must be same, so we assigned it to the variable
-
+// Event Bubbling
 btn.addEventListener('click', deleteElement);// arg2 is just reference to deleteElement() function
 // btn.removeEventListener('click', deleteElement); // parenthesis same as above
+overlay.addEventListener('click', deleteElement);
+
+const link = document.querySelector('a');
+
+link.addEventListener('click', (event) => {
+    event.preventDefault();// Preventing default behaviour of a link
+
+    console.log(event.target);
+
+});
