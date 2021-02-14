@@ -5,24 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+   
 </head>
-    <style>
-        body {
-            height: 1000px;
-        }
-
-        .box {
-            width: 150px;
-            height: 100px;
-            background-color: red;
-        }
-    </style>
-
 <body>
-    <div class="box">
-        Touch Me!
-    </div>
+    <!-- <script defer src="async_defer.js"></script> -->
+    <!-- "defer" tells the browser to keep running script in a background mode -->
+    <!-- script will run after DOM is LOADED -->
+    <!-- defer helps to run scripts sequentially -->
 
-    <script src="mob_events.js"></script>
+
+    <!-- <script async src="async_defer.js"></script> -->
+    <!-- Async doesnt wait for anything and it is not waited by other scrypts -->
+    <!-- Runs in BG mode -->
+    <!-- before using async check that script do not depend on DOM or other SCRIPTS -->
+
+    <p>Hello World</p>
+    <p>Hello World</p>
+
+    <script  src="async_defer.js"></script>
 </body>
 </html>

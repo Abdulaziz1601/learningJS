@@ -34,23 +34,23 @@
 // 1.
 // 0, '', null, undefined, NaN; //Always False
 
-let switcher = null;
+// let switcher = null;
 
-if(switcher) {
+// if(switcher) {
+    // console.log("Working...");
+// // }
+
+//  switcher = 1;
+
+// if(switcher) {
     console.log("Working...");
-}
-
- switcher = 1;
-
-if(switcher) {
-    console.log("Working...");
-}
+// }
 
 // 2.
 // console.log(typeof(Boolean('4')));// boolean
 
 // 3.
-console.log(typeof(!!'4'));// boolean
+// console.log(typeof(!!'4'));// boolean
 // It also converts to boolean
 
 
