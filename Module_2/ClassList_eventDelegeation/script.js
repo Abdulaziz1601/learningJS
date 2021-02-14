@@ -48,7 +48,13 @@ const btns = document.querySelectorAll("button"),
 //     // We are delegating the event from parent to its child 
 // });
 
-
+btns.forEach(btn => {
+    btn.addEventListener('click', () => {  
+        console.log('Hello');
+    });
+});
+// We click buttons they worked, but dynamically added btn do not worked
+// , because it doesnot know that events were added
 
 
 const bt = document.createElement('button');
