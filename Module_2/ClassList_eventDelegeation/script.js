@@ -37,7 +37,12 @@ const btns = document.querySelectorAll("button"),
 // To the Parent element and then in it we will check which child was clicked. 
 
 // event to Parent
-// wrapper.addEventListener('click', (event) => {
+wrapper.addEventListener('click', (event) => {
+    // Also we can search for matcching elements
+    if (event.target && event.target.matches('button.red')) {
+        console.log('Hello');  
+    }
+
 //     if (event.target && event.target.tagName == "BUTTON") { //If button is clicked then Hello appears
 //         console.log('Hello');
 //     }
@@ -46,13 +51,13 @@ const btns = document.querySelectorAll("button"),
 //     //     console.log('Hello');
 //     // }
 //     // We are delegating the event from parent to its child 
-// });
-
-btns.forEach(btn => {
-    btn.addEventListener('click', () => {  
-        console.log('Hello');
-    });
 });
+
+// btns.forEach(btn => {
+//     btn.addEventListener('click', () => {  
+//         console.log('Hello');
+//     });
+// });
 // We click buttons they worked, but dynamically added btn do not worked
 // , because it doesnot know that events were added
 
