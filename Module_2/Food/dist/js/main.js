@@ -43,7 +43,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Timer
 
-    const deadline = '2021-02-18';
+    const deadline = '2021-02-25';
     function getTimeRemaining(endtime) {
         const t = Date.parse(endtime) - Date.parse(new Date()),
               days = Math.floor(t / (1000 * 60 * 60 * 24)),
@@ -92,4 +92,55 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     }
     setClock('.timer', deadline);
+
+    // Modal
+// All variables are taken
+    const modalTrigger = document.querySelectorAll('[data-modal]'), //data attributes are appropriate here
+          modal = document.querySelector('.modal'),
+          modalCloseBtn = document.querySelector('[data-close]');//data attributes are appropriate here
+
+    modalTrigger.forEach( item => { // adding events to all triggers to open modal
+        item.addEventListener('click', () => {
+            modal.classList.add('show');
+            modal.classList.remove('hide');
+            document.body.style.overflow = 'hidden';
+        });
+    });
+    //DRY don't repeat yourself, code was written 2, so copied, because of this we created fucntion
+    function closeModal() {
+        modal.classList.add('hide');
+        modal.classList.remove('show');
+        document.body.style.overflow = ''; //browser automatically knows what to do
+    }
+
+    modalCloseBtn.addEventListener('click', () => { // adding events to all triggers to close modal
+        closeModal();    
+    });
+
+    modal.addEventListener('click', (e) => {
+        if(e.target === modal) {
+            closeModal();    
+        }
+    });
+
+    // Event when key (esc) is pressed, modal is closed
+
+    document.addEventListener('keydown', (e) => {
+        if (e.code == 'Escape' && modal.classList.contains('show')){ //If modal is open
+            closeModal();
+        }
+    });
+    // With toggle function
+    // modalTrigger.forEach((item) => { // adding events to all triggers to open modal
+    //     item.addEventListener('click', () => {
+    //         modal.classList.toggle('show');
+    //         document.body.style.overflow = 'hidden';
+    //     });
+    // });
+    
+    // modalCloseBtn.addEventListener('click', () => { // adding events to all triggers to close modal
+    //     modal.classList.toggle('show');
+    //     document.body.style.overflow = ''; //browser automatically knows what to do
+    // });
+
 });
