@@ -104,7 +104,7 @@ window.addEventListener('DOMContentLoaded', () => {
         modal.classList.add('show');
         modal.classList.remove('hide');
         document.body.style.overflow = 'hidden';
-        clearInterval(modalTimerID);
+        clearInterval(modalTimerID); //Deletes an interval if user is already opened a modal
     }
 
     function closeModal() {
@@ -145,6 +145,19 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Task is when user scrolls till some point modal pops up
 
-    const modalTimerID = setTimeout(openModal, 5000);
+    const modalTimerID = setTimeout(openModal, 5000); // After  5 seconds modal pops up
+
+    //If user scrolls till end, then modal appears
+
+    function showModalByScroll() {
+        // user-scrolled-part      height-that-is-visible-to-client        whole-height-of-doc
+        if(window.pageYOffset + document.documentElement.clientHeight >= document.
+        documentElement.scrollHeight) {
+            openModal();
+            window.removeEventListener('scroll', showModalByScroll); // after event is used it is removed but modal is still shown only event is removed
+        }
+    }
+    window.addEventListener('scroll', showModalByScroll); // We cannot put here , {once: true} as 3RD arg because we added event to window so scroll changes in window
+    // much time so when user starts scrolling and ends it event is triggered once and deleted
 });
 
