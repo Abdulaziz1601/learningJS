@@ -99,23 +99,23 @@ window.addEventListener('DOMContentLoaded', () => {
           modal = document.querySelector('.modal'),
           modalCloseBtn = document.querySelector('[data-close]');//data attributes are appropriate here
 
-    modalTrigger.forEach( item => { // adding events to all triggers to open modal
-        item.addEventListener('click', () => {
-            modal.classList.add('show');
-            modal.classList.remove('hide');
-            document.body.style.overflow = 'hidden';
-        });
-    });
     //DRY don't repeat yourself, code was written 2, so copied, because of this we created fucntion
+    function openModal() {
+        modal.classList.add('show');
+        modal.classList.remove('hide');
+        document.body.style.overflow = 'hidden';
+        clearInterval(modalTimerID);
+    }
+
     function closeModal() {
         modal.classList.add('hide');
         modal.classList.remove('show');
         document.body.style.overflow = ''; //browser automatically knows what to do
     }
 
-    modalCloseBtn.addEventListener('click', () => { // adding events to all triggers to close modal
-        closeModal();    
-    });
+    modalTrigger.forEach( item => item.addEventListener('click', openModal) );// adding events to all triggers to open modal
+    
+    modalCloseBtn.addEventListener('click', closeModal); // adding events to all triggers to close modal
 
     modal.addEventListener('click', (e) => {
         if(e.target === modal) {
@@ -143,4 +143,8 @@ window.addEventListener('DOMContentLoaded', () => {
     //     document.body.style.overflow = ''; //browser automatically knows what to do
     // });
 
+    // Task is when user scrolls till some point modal pops up
+
+    const modalTimerID = setTimeout(openModal, 5000);
 });
+
