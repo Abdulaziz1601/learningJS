@@ -15,6 +15,8 @@ inputSUM.addEventListener('input', () => {
             console.log(request.response);   
             const data = JSON.parse(request.response);
             inputUSD.value =( +inputSUM.value / data.current.usd).toFixed(2);
+        } else {
+            inputUSD.value = 'Something went wrong';
         }
         
     } );
