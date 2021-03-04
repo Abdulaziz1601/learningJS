@@ -12,7 +12,7 @@ inputRub.addEventListener('input', () => { // If we input smth, it will notice, 
 // assynchronic code: does not care about any other code blocks, and runs anytime
 // AJAX request are assynchronic
 
-    request.open('GET', 'js/currentw.json');
+    request.open('GET', 'js/current.json');
     request.setRequestHeader('Content-type', 'application/json charset=utd-8');
     request.send();
     
