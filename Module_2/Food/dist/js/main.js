@@ -269,4 +269,70 @@ window.addEventListener('DOMContentLoaded', () => {
         430,
         '.menu .container',
     ).render(); 
+
+    // We have some modals, we have  to take info from them and share to server in our case sever.php
+    // We'll you use one function, It is good practice
+    
+    //Forms
+
+    const forms =  document.querySelectorAll('form'); //We are getting all forms
+
+    const message = {
+        loading: 'Loading',
+        success: 'Thank you! We will contact you soon!',
+        failure: 'Something went wrong...'
+    };
+
+    forms.forEach(item => {
+        postData(item); 
+    });
+
+    function postData(form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const statusMessage = document.createElement('div');
+            statusMessage.classList.add('status');
+            statusMessage.textContent = message.loading;
+            form.append(statusMessage);
+
+            const request = new XMLHttpRequest();
+            request.open('POST', 'server.php');
+
+            // request.setRequestHeader('Content-type', 'multipart/form-data');//We do not have to write, form data will automtically do it
+            const formData = new FormData(form); // looks like JSON but It is object FormData
+            //Most important thing is:
+            //There has to be attribute name, js can't find form, so you've to check it
+
+            //!!If we need to send data as json file, we need headers!!
+            request.setRequestHeader('Content-type', 'multipart/form-data'); //json
+            // FormData object is specific object, so we cannot just turn it to JSON, as simple objects //json
+
+            const object = {}; //json
+            formData.forEach(function(value, key) { //json
+                object[key] = value; //It will assign all values seqentially //json
+            }); //json
+
+            const json = JSON.stringify(object); //Converts an object to JSON //json
+
+            // request.send(formData); // obj formdata
+            request.send(json); // json file //json
+            // native php cannot 
+            request.addEventListener('load', () => {
+                if(request.status === 200) {  
+                    console.log(request.response);
+                    statusMessage.textContent = message.success;
+                    form.reset(); //Deletes text after sending it to server or We can clear their values incrementally, It is same 
+                    setTimeout(() => {
+                        statusMessage.remove();
+                    }, 2000);
+                } else {
+                    statusMessage.textContent = message.failure;
+                }
+            });
+
+        });
+    }
+
+
 }); 
