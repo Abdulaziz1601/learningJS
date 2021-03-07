@@ -96,8 +96,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // Modal
 // All variables are taken
     const modalTrigger = document.querySelectorAll('[data-modal]'), //data attributes are appropriate here
-          modal = document.querySelector('.modal'),
-          modalCloseBtn = document.querySelector('[data-close]');//data attributes are appropriate here
+          modal = document.querySelector('.modal');
 
     //DRY don't repeat yourself, code was written 2, so copied, because of this we created fucntion
     function openModal() {
@@ -115,12 +114,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
     modalTrigger.forEach( item => item.addEventListener('click', openModal) );// adding events to all triggers to open modal
     
-    modalCloseBtn.addEventListener('click', closeModal); // adding events to all triggers to close modal
-
     modal.addEventListener('click', (e) => {
-        if(e.target === modal) {
+        if(e.target === modal || e.target.getAttribute('data-close') == ''){ //used event delegation
             closeModal();    
-        }
+        }   
     });
 
     // Event when key (esc) is pressed, modal is closed
@@ -151,8 +148,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     function showModalByScroll() {
         // user-scrolled-part      height-that-is-visible-to-client        whole-height-of-doc
-        if(window.pageYOffset + document.documentElement.clientHeight >= document.
-        documentElement.scrollHeight) {
+        if(window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
             openModal();
             window.removeEventListener('scroll', showModalByScroll); // after event is used it is removed but modal is still shown only event is removed
         }
@@ -333,6 +329,32 @@ window.addEventListener('DOMContentLoaded', () => {
 
         });
     }
+    
+    // Styling ater post of message, wi JS
 
+    function showThanksModal() {
+        const prevModalDialog = document.querySelector('.modal__dialog');
+
+        prevModalDialog.classList.add('.hide');
+        openModal();
+
+        const thanksModal = document.createElement('div');
+        thanksModal.classList.add('modal_dialog');
+        thanksModal.innerHTML = `
+            <div class="modal__content">
+                <div class="modal__close" data-close>×</div>
+                <div class="modal__title>${message}</div>
+            </div>
+        `;
+
+        document.querySelector('.moadl').append(thanksModal); 
+        setTimeout(() => {
+            thanksModal.remove();
+            prevModalDialog.classList.add('show');
+            prevModalDialog.classList.remove('hide');
+            closeModal();
+        }, 4000);
+
+    }
 
 }); 
