@@ -96,14 +96,14 @@ window.addEventListener('DOMContentLoaded', () => {
     // Modal
 // All variables are taken
     const modalTrigger = document.querySelectorAll('[data-modal]'), //data attributes are appropriate here
-          modal = document.querySelector('.modal');
+          modal = document.querySelector('.modal');//data attributes are appropriate here
 
     //DRY don't repeat yourself, code was written 2, so copied, because of this we created fucntion
     function openModal() {
         modal.classList.add('show');
         modal.classList.remove('hide');
         document.body.style.overflow = 'hidden';
-        // clearInterval(modalTimerID); //Deletes an interval if user is already opened a modal
+        clearInterval(modalTimerID); //Deletes an interval if user is already opened a modal
     }
 
     function closeModal() {
@@ -115,9 +115,9 @@ window.addEventListener('DOMContentLoaded', () => {
     modalTrigger.forEach( item => item.addEventListener('click', openModal) );// adding events to all triggers to open modal
     
     modal.addEventListener('click', (e) => {
-        if(e.target === modal || e.target.getAttribute('data-close') == ''){ //used event delegation
+        if(e.target === modal || e.target.getAttribute('data-close') == '') {
             closeModal();    
-        }   
+        }
     });
 
     // Event when key (esc) is pressed, modal is closed
@@ -142,13 +142,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Task is when user scrolls till some point modal pops up
 
-    // const modalTimerID = setTimeout(openModal, 5000); // After  5 seconds modal pops up
+    const modalTimerID = setTimeout(openModal, 50000); // After  50 seconds modal pops up
 
     //If user scrolls till end, then modal appears
 
     function showModalByScroll() {
         // user-scrolled-part      height-that-is-visible-to-client        whole-height-of-doc
-        if(window.pageYOffset + document.documentElement.clientHeight >= document.documentElement.scrollHeight) {
+        if(window.pageYOffset + document.documentElement.clientHeight >= document.
+        documentElement.scrollHeight) {
             openModal();
             window.removeEventListener('scroll', showModalByScroll); // after event is used it is removed but modal is still shown only event is removed
         }
@@ -274,7 +275,7 @@ window.addEventListener('DOMContentLoaded', () => {
     const forms =  document.querySelectorAll('form'); //We are getting all forms
 
     const message = {
-        loading: 'Loading',
+        loading: 'img/forms/spinner.svg',
         success: 'Thank you! We will contact you soon!',
         failure: 'Something went wrong...'
     };
@@ -287,11 +288,13 @@ window.addEventListener('DOMContentLoaded', () => {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
-            const statusMessage = document.createElement('div');
-            statusMessage.classList.add('status');
-            statusMessage.textContent = message.loading;
-            form.append(statusMessage);
-
+            const statusMessage = document.createElement('img');
+            statusMessage.src = message.loading; // We could set src with setAttribute
+            statusMessage.style.cssText = `
+                display: block;
+                margin: 0 auto;
+            `;// Adding styled classes like .show is the best way
+            form.insertAdjacentElement('afterend', statusMessage);
             const request = new XMLHttpRequest();
             request.open('POST', 'server.php');
 
@@ -317,44 +320,44 @@ window.addEventListener('DOMContentLoaded', () => {
             request.addEventListener('load', () => {
                 if(request.status === 200) {  
                     console.log(request.response);
-                    statusMessage.textContent = message.success;
+                    showThanksModal(message.success);
                     form.reset(); //Deletes text after sending it to server or We can clear their values incrementally, It is same 
-                    setTimeout(() => {
-                        statusMessage.remove();
-                    }, 2000);
+                    statusMessage.remove();
                 } else {
-                    statusMessage.textContent = message.failure;
+                    showThanksModal(message.failure);
                 }
             });
 
         });
-    }
     
+    }
     // Styling ater post of message, wi JS
-
-    function showThanksModal() {
+    // We wanna took just wraper (.modal__dialog) of the previous modal, and just replace it with 
+    // texts such as succesc fail or etc
+    function showThanksModal(message) {
         const prevModalDialog = document.querySelector('.modal__dialog');
+        //We are hiding this element, before showing modal 
+        prevModalDialog.classList.add('hide');// content is hidden, not deleted - in case user wants to access IT
+        openModal(); //opens modal
 
-        prevModalDialog.classList.add('.hide');
-        openModal();
-
-        const thanksModal = document.createElement('div');
-        thanksModal.classList.add('modal_dialog');
+        // Creating new THANKS content
+        const thanksModal = document.createElement('div');// Wrapper is created inside main .modal class
+        thanksModal.classList.add('modal__dialog'); //Remember, previous .modal__dialog class is hidden
+        // and we are creating another new  .modal__dialog class inside main modal class
         thanksModal.innerHTML = `
             <div class="modal__content">
                 <div class="modal__close" data-close>×</div>
-                <div class="modal__title>${message}</div>
+                <div class="modal__title">${message}</div>
             </div>
         `;
 
-        document.querySelector('.moadl').append(thanksModal); 
+        document.querySelector('.modal').append(thanksModal);
         setTimeout(() => {
             thanksModal.remove();
             prevModalDialog.classList.add('show');
             prevModalDialog.classList.remove('hide');
             closeModal();
         }, 4000);
-
     }
 
 }); 
