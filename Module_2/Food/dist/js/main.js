@@ -359,5 +359,9 @@ window.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }, 4000);
     }
+    //Fetch API - built on promises, and promises are really practical
 
+    fetch('https://jsonplaceholder.typicode.com/todos/1')
+        .then(response => response.json()) // converts JSON to simple OBJect, we can also convert text to obj with .text() func  
+        .then(json => console.log(json));
 }); 
