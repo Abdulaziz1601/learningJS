@@ -304,27 +304,25 @@ window.addEventListener('DOMContentLoaded', () => {
             // request.setRequestHeader('Content-type', 'multipart/form-data'); //json
             // FormData object is specific object, so we cannot just turn it to JSON, as simple objects //json
 
-            // const object = {}; //json
-            // formData.forEach(function(value, key) { //json
-            //     object[key] = value; //It will assign all values seqentially //json
-            // }); //json
-
-            // const json = JSON.stringify(object); //Converts an object to JSON //json
+            const object = {}; //json
+            formData.forEach(function(value, key) { //json
+                object[key] = value; //It will assign all values seqentially //json
+            }); //json
 
             fetch('server.php', {
                 method: "POST",
-                // headers:{ 
-                //     "Content-type": "multipart/form-data"
-                // },
-                body: formData //FormData obj is sent not JSON
-            })
+                headers:{ 
+                    "Content-type": "multipart/form-data"
+                },
+                body: JSON.stringify(object) //Converts an object to JSON //json //JSON object is sent not formData
+            })  
             .then( data => data.text())
             .then(data => {
                 console.log(data);
                 showThanksModal(message.success);
                 statusMessage.remove();
             })
-            .catch((data) => {
+            .catch(() => {
                 showThanksModal(message.failure);
             })
             .finally(() => {
