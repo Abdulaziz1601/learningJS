@@ -361,7 +361,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
     //Fetch API - built on promises, and promises are really practical
 
-    fetch('https://jsonplaceholder.typicode.com/todos/1', {
+    fetch('https://jsonplaceholder.typicode.com/posts', {
         method: "POST",
         body: JSON.stringify({name: "Abdulaziz"}),
         headers: {
