@@ -295,43 +295,44 @@ window.addEventListener('DOMContentLoaded', () => {
                 margin: 0 auto;
             `;// Adding styled classes like .show is the best way
             form.insertAdjacentElement('afterend', statusMessage);
-            const request = new XMLHttpRequest();
-            request.open('POST', 'server.php');
-
-            // request.setRequestHeader('Content-type', 'multipart/form-data');//We do not have to write, form data will automtically do it
+             
             const formData = new FormData(form); // looks like JSON but It is object FormData
             //Most important thing is:
             //There has to be attribute name, js can't find form, so you've to check it
 
             //!!If we need to send data as json file, we need headers!!
-            request.setRequestHeader('Content-type', 'multipart/form-data'); //json
+            // request.setRequestHeader('Content-type', 'multipart/form-data'); //json
             // FormData object is specific object, so we cannot just turn it to JSON, as simple objects //json
 
-            const object = {}; //json
-            formData.forEach(function(value, key) { //json
-                object[key] = value; //It will assign all values seqentially //json
-            }); //json
+            // const object = {}; //json
+            // formData.forEach(function(value, key) { //json
+            //     object[key] = value; //It will assign all values seqentially //json
+            // }); //json
 
-            const json = JSON.stringify(object); //Converts an object to JSON //json
+            // const json = JSON.stringify(object); //Converts an object to JSON //json
 
-            // request.send(formData); // obj formdata
-            request.send(json); // json file //json
-            // native php cannot 
-            request.addEventListener('load', () => {
-                if(request.status === 200) {  
-                    console.log(request.response);
-                    showThanksModal(message.success);
-                    form.reset(); //Deletes text after sending it to server or We can clear their values incrementally, It is same 
-                    statusMessage.remove();
-                } else {
-                    showThanksModal(message.failure);
-                }
+            fetch('server.php', {
+                method: "POST",
+                // headers:{ 
+                //     "Content-type": "multipart/form-data"
+                // },
+                body: formData //FormData obj is sent not JSON
+            })
+            .then( data => data.text())
+            .then(data => {
+                console.log(data);
+                showThanksModal(message.success);
+                statusMessage.remove();
+            })
+            .catch((data) => {
+                showThanksModal(message.failure);
+            })
+            .finally(() => {
+                form.reset(); //Deletes text after sending it to server or We can clear their values incrementally, It is same 
             });
-
         });
-    
     }
-    // Styling ater post of message, wi JS
+    // Styling ater post of message, with JS
     // We wanna took just wraper (.modal__dialog) of the previous modal, and just replace it with 
     // texts such as succesc fail or etc
     function showThanksModal(message) {
@@ -359,15 +360,4 @@ window.addEventListener('DOMContentLoaded', () => {
             closeModal();
         }, 4000);
     }
-    //Fetch API - built on promises, and promises are really practical
-
-    fetch('https://jsonplaceholder.typicode.com/posts', {
-        method: "POST",
-        body: JSON.stringify({name: "Abdulaziz"}),
-        headers: {
-            'Content-type': 'application/json'
-        }   
-    })
-    .then(response => response.json()) // converts JSON to simple OBJect, we can also convert text to obj with .text() func  
-    .then(json => console.log(json));
 }); 
