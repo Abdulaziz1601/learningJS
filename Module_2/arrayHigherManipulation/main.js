@@ -104,11 +104,17 @@ const obj = {
     dog: 'animal'
 };
 
-const newArr = Object.entries(obj)
-.filter(item => item[1] === 'person')
-.map(item => item[0]);
+// const newArr = Object.entries(obj) // changes obj to arr
+// .filter(item => item[1] === 'person')
+// .map(item => item[0]);
 
-console.log(newArr);
+// console.log(newArr);
+
+const newArr = Object.entries(obj)
+.filter(item => item[1] === 'animal')
+.map(item => item[0]);// item = [ 'cat', 'animal' ]
+
+console.log(newArr); //[ 'cat', 'dog' ]
 
 
  
