@@ -1,5 +1,6 @@
 'use strict';
 // These loops, return NEW ARRAY, unlike for, for just used for teaversing
+
 //filter
 
 // const names = ['Abdulaziz', 'Abdunabi', 'Ozoda', 'Rahimahon', 'Rihsiyahon', 'Ali', 'Nur'];
@@ -11,8 +12,7 @@
 
 // console.log(shortNames); 
 
-
-
+//--------------------------------------------------------------------------------------------------------------------
 
 //map
 
@@ -36,7 +36,7 @@
 
 // console.log(answers); //[ 'ivan', 'anna', 'hello' ]
 
-
+//--------------------------------------------------------------------------------------------------------------------
 
 // every/some
 // Traverses whole array and if element is fits for given condition it returns TRUE
@@ -53,7 +53,7 @@
 // TRUE because every element is number
 // console.log(some.every(item => typeof(item) === 'number')); //true
 
-
+//--------------------------------------------------------------------------------------------------------------------
 
 //reduce
 
@@ -94,8 +94,24 @@
 // const res = arr.reduce((sum, current) => sum+current, 5); // We can also define initial value
 
 // console.log(res); //21 + 5 => 26
+//--------------------------------------------------------------------------------------------------------------------
+//Practical part
+//We wanna take keys of 'person' values, ivan and ann
+const obj = {
+    ivan: 'person',
+    ann: 'person',
+    cat: 'animal',
+    dog: 'animal'
+};
+
+const newArr = Object.entries(obj)
+.filter(item => item[1] === 'person')
+.map(item => item[0]);
+
+console.log(newArr);
 
 
+ 
 
 
 
