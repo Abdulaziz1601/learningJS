@@ -281,10 +281,22 @@ window.addEventListener('DOMContentLoaded', () => {
     };
 
     forms.forEach(item => {
-        postData(item); 
+        bindPostData(item); 
     });
 
-    function postData(form) {
+    const postData = async (url, data) => { //Means that here will be some aschronous code
+        const res = fetch(url, { //Here fetch will return some promise but will not complete, so 
+            method: "POST",
+            headers:{ 
+                "Content-type": "application/json"
+            },
+            body: data
+        } ); 
+        
+        return res.json(); //res.json  will give error, so we have to change this func to synchronous code
+    };
+
+    function bindPostData(form) {
         form.addEventListener('submit', (e) => {
             e.preventDefault();
 
