@@ -252,12 +252,38 @@ window.addEventListener('DOMContentLoaded', () => {
         return await res.json();// Will return simple object why ???
     };
 
+    // getResource("http://localhost:3000/menu")
+    //     .then(data => {
+    //         data.forEach(({img, altimg, title, descr, price}) => { // item = element in array of objs was obj itself so we used object destructuring EX: {img, altimg, title, descr, price} = arrElem;
+    //             new MenuCard(img, altimg, title, descr, price, '.menu .container').render(); //new MenuCard(obj.img, obj.altImg).render(); we could write like this, but it is not effcnt so we use object destructuring
+    //         });
+    //     });
+
+    //Another way to get Data from server
+
     getResource("http://localhost:3000/menu")
-        .then(data => {
-            data.forEach(({img, altimg, title, descr, price}) => { // item = element in array of objs was obj itself so we used object destructuring EX: {img, altimg, title, descr, price} = arrElem;
-                new MenuCard(img, altimg, title, descr, price, '.menu .container').render(); //new MenuCard(obj.img, obj.altImg).render(); we could write like this, but it is not effcnt so we use object destructuring
-            });
+        .then(data => createCard(data));
+    
+    function createCard(data) {
+        data.forEach(({img, altimg, title, descr, price}) => {
+            const element = document.createElement('div');
+
+            element.classList.add('menu__item');
+
+            element.innerHTML = ` 
+                <img src=${img} alt=${altimg}>
+                <h3 class="menu__item-subtitle">${title}</h3>
+                <div class="menu__item-descr">${descr}</div>
+                <div class="menu__item-divider"></div>
+                <div class="menu__item-price">
+                    <div class="menu__item-cost">Цена:</div>
+                    <div class="menu__item-total"><span>${price}</span> грн/день</div>
+                </div>
+            `;
+
+            document.querySelector('.menu .container').append(element);
         });
+    }
 
     // We have some modals, we have  to take info from them and share to server in our case sever.php
     // We'll you use one function, It is good practice
