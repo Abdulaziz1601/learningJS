@@ -248,36 +248,16 @@ window.addEventListener('DOMContentLoaded', () => {
         if(!res.ok) {
             throw new Error(`Could not fetch ${url}, status: ${res.status}`); //Throws (Shows) an Error if smth happens
         }
-        
-        return await res.json(); //res.json  will give error, so we have to change this func to synchronous code
+
+        return await res.json();// Will return simple object why ???
     };
 
-    new MenuCard(
-        'img/tabs/vegy.jpg',
-        "vegy",
-        'Меню "Фитнес"',
-        'Меню "Фитнес" - это новый подход к приготовлению блюд: больше свежих овощей и фруктов. Продукт активных и  здоровых людей. Это абсолютно новый продукт с оптимальной ценой и высоким качеством!',
-        229,
-        '.menu .container',
-    ).render(); //If we use once, we can write like this, but we can't reuse it
-
-    new MenuCard(
-        'img/tabs/elite.jpg',
-        "elite",
-        'Меню “Премиум”',
-        'В меню “Премиум” мы используем не только красивый дизайн упаковки, но и качественное исполнение блюд. Красная рыба, морепродукты, фрукты - ресторанное меню без похода в ресторан!',
-        550,
-        '.menu .container',
-    ).render(); 
-
-    new MenuCard(
-        'img/tabs/post.jpg',
-        "post",
-        'Меню "Постное"',
-        'Меню “Постное” - это тщательный подбор ингредиентов: полное отсутствие продуктов животного происхождения, молоко из миндаля, овса, кокоса или гречки, правильное количество белков за счет тофу и импортных вегетарианских стейков.',
-        430,
-        '.menu .container',
-    ).render(); 
+    getResource("http://localhost:3000/menu")
+        .then(data => {
+            data.forEach(({img, altimg, title, descr, price}) => { // item = element in array of objs was obj itself so we used object destructuring EX: {img, altimg, title, descr, price} = arrElem;
+                new MenuCard(img, altimg, title, descr, price, '.menu .container').render(); //new MenuCard(obj.img, obj.altImg).render(); we could write like this, but it is not effcnt so we use object destructuring
+            });
+        });
 
     // We have some modals, we have  to take info from them and share to server in our case sever.php
     // We'll you use one function, It is good practice
