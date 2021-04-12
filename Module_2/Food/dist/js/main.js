@@ -284,16 +284,16 @@ window.addEventListener('DOMContentLoaded', () => {
         bindPostData(item); 
     });
 
-    const postData = async (url, data) => { //Means that here will be some aschronous code
-        const res = fetch(url, { //Here fetch will return some promise but will not complete, so 
+    const postData = async (url, data) => { //Means that here will be some aschronous code. async cannot be used without await and vice versa
+        const res = await fetch(url, { //Here fetch will return some promise but will not complete, so we use await
             method: "POST",
             headers:{ 
                 "Content-type": "application/json"
             },
             body: data
         } ); 
-        
-        return res.json(); //res.json  will give error, so we have to change this func to synchronous code
+        // We dont know how much time, It will proccess the json data, so here we will use await to make code asynchronous (by standart it will wait 30 sec)
+        return await res.json(); //res.json  will give error, so we have to change this func to synchronous code
     };
 
     function bindPostData(form) {
@@ -316,21 +316,20 @@ window.addEventListener('DOMContentLoaded', () => {
             // request.setRequestHeader('Content-type', 'multipart/form-data'); //json
             // FormData object is specific object, so we cannot just turn it to JSON, as simple objects //json
 
-            const object = {}; //json
-            formData.forEach(function(value, key) { //json
-                object[key] = value; //It will assign all values seqentially //json
-            }); //json
+            const json = JSON.stringify(Object.fromEntries(formData.entries()));
+            // starting debug from deepest bracket: turned formdata to arr -> turned arr to classic (simple) obj -> turned obj to JSON.
 
-            fetch('server.php', {
-                method: "POST",
-                headers:{ 
-                    "Content-type": "multipart/form-data"
-                },
-                body: JSON.stringify(object) //Converts an object to JSON //json //JSON object is sent not formData
-            })  
-            .then( data => data.text())
+
+            // fetch('server.php', {
+            //     method: "POST",
+            //     headers:{ 
+            //         "Content-type": "multipart/form-data"
+            //     },
+            //     body: JSON.stringify(object) //Converts an object to JSON //json //JSON object is sent not formData
+            // })
+            postData('http://localhost:3000/requests', json)
             .then(data => {
-                console.log(data);
+                console.log(data);  
                 showThanksModal(message.success);
                 statusMessage.remove();
             })
