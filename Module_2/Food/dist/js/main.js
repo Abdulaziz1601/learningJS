@@ -239,6 +239,18 @@ window.addEventListener('DOMContentLoaded', () => {
             this.parent.append(element);
         }
     }
+    
+    const getResource = async (url) => { //Means that here will be some aschronous code. async cannot be used without await and vice versa
+        const res = await fetch(url); //Here we only get data not post
+        // The Problem is fetch won't stop if some error happens, fetch'll stop only when no connection or some critic errors
+        // So, in this case we have to deal with that ourselves, with  ok and status props
+
+        if(!res.ok) {
+            throw new Error(`Could not fetch ${url}, status: ${res.status}`); //Throws (Shows) an Error if smth happens
+        }
+        
+        return await res.json(); //res.json  will give error, so we have to change this func to synchronous code
+    };
 
     new MenuCard(
         'img/tabs/vegy.jpg',
