@@ -401,4 +401,53 @@ window.addEventListener('DOMContentLoaded', () => {
     fetch('http://localhost:3000/menu')
         .then(data => data.json())
         .then(res => console.log(res));
+
+    // Slider
+
+    const slides = document.querySelectorAll('.offer__slide'),
+          prev = document.querySelector('.offer__slider-prev'),
+          next = document.querySelector('.offer__slider-next'),
+          current = document.querySelector('#current');
+    
+    let count = 1;
+    
+    function hideAll(elements) {
+        elements.forEach(item => {
+            item.classList.remove('show', 'fade');
+            item.classList.add('hide');
+        });
+    }
+    function showSlide(slideToShow = 1) {
+        slides.forEach((slide, i) => {
+             if(i == (slideToShow-1)) {
+                slide.classList.remove('hide');
+                slide.classList.add('fade', 'show');
+             } 
+        });
+    }
+
+    function setCurrentSlide(count=1) {
+        current.textContent = `${getZero(count)}`;
+    }
+
+    hideAll(slides);
+    showSlide();
+    setCurrentSlide();
+    
+    next.addEventListener('click', () => {
+        count++;
+        if (count === 5) count = 1;
+        hideAll(slides);
+        showSlide(count);
+        current.textContent = `${getZero(count)}`;
+
+
+    });
+    prev.addEventListener('click', () => {
+        count--;
+        if (count === 0) count = 4;
+        hideAll(slides);
+        showSlide(count);
+        current.textContent = `${getZero(count)}`;
+    });
 }); 
