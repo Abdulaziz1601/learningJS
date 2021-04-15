@@ -407,47 +407,44 @@ window.addEventListener('DOMContentLoaded', () => {
     const slides = document.querySelectorAll('.offer__slide'),
           prev = document.querySelector('.offer__slider-prev'),
           next = document.querySelector('.offer__slider-next'),
+          total = document.querySelector('#total'),
           current = document.querySelector('#current');
+    let slideIndex = 1;
     
-    let count = 1;
-    
-    function hideAll(elements) {
-        elements.forEach(item => {
-            item.classList.remove('show', 'fade');
-            item.classList.add('hide');
-        });
-    }
-    function showSlide(slideToShow = 1) {
-        slides.forEach((slide, i) => {
-             if(i == (slideToShow-1)) {
-                slide.classList.remove('hide');
-                slide.classList.add('fade', 'show');
-             } 
-        });
+    showSlides(slideIndex);
+
+    if (slides.length < 10) {
+        total.textContent = `0${slides.length}`;
+    } else {
+        total.textContent = slides.length;
     }
 
-    function setCurrentSlide(count=1) {
-        current.textContent = `${getZero(count)}`;
+
+    function showSlides(n) {
+        if (n > slides.length) {
+            slideIndex = 1;
+        }
+
+        if (n < 1) {
+            slideIndex = slides.length;
+        }
+
+        slides.forEach(item => item.style.display = "none");
+
+        slides[slideIndex - 1].style.display = "block";
+
+        if (slideIndex < 10) {
+            current.textContent = `0${slideIndex}`;
+        } else {
+            current.textContent = `${slideIndex}`;
+        }
     }
 
-    hideAll(slides);
-    showSlide();
-    setCurrentSlide();
-    
-    next.addEventListener('click', () => {
-        count++;
-        if (count === 5) count = 1;
-        hideAll(slides);
-        showSlide(count);
-        current.textContent = `${getZero(count)}`;
+    function plusSlides(n) {
+        showSlides(slideIndex += n);    
+    }
 
+    prev.addEventListener('click', () =>  plusSlides(-1) );
 
-    });
-    prev.addEventListener('click', () => {
-        count--;
-        if (count === 0) count = 4;
-        hideAll(slides);
-        showSlide(count);
-        current.textContent = `${getZero(count)}`;
-    });
+    next.addEventListener('click', () => plusSlides(1) );
 }); 
