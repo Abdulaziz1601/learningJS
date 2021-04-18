@@ -455,7 +455,6 @@ window.addEventListener('DOMContentLoaded', () => {
             current.textContent = slideIndex;
         }
     });
-
     prev.addEventListener('click', () => {
          if (offset == 0) {
              offset = +width.slice(0, width.length - 2) * (slides.length - 1);
