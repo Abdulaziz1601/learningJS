@@ -485,13 +485,14 @@ window.addEventListener('DOMContentLoaded', () => {
         dots.push(dot); // pushing li dots to dots[] arr
     }
 
+    const onlyNum = (str) => +str.replace(/\D/g, ''); //Return only number part of str
     
     next.addEventListener('click', () => {
         // offset = 650 * 3 == 1950, when offset is at the end, we change it to first slide
-        if (offset == +width.replace(/\D/g, '') * (slides.length - 1)) {
+        if (offset == onlyNum(width) * (slides.length - 1)) {
             offset = 0;
         } else {
-            offset += +width.replace(/\D/g, ''); // when next is clicked offset grows
+            offset += onlyNum(width); // when next is clicked offset grows
         } // so it will move to left to -X, by making slides to pass next after another
         slidesField.style.transform = `translateX(-${offset}px)`;
 
@@ -516,9 +517,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
     prev.addEventListener('click', () => {
         if (offset == 0) { // when offset is at 0 - before 1St slide ->
-            offset = +width.replace(/\D/g, '') * (slides.length - 1); // it will move to the last slide
+            offset = onlyNum(width) * (slides.length - 1); // it will move to the last slide
         } else {
-            offset -= +width.replace(/\D/g, ''); // offset decreases so 
+            offset -= onlyNum(width); // offset decreases so 
         }
         slidesField.style.transform = `translateX(-${offset}px)`; // field is moved to right, 
         // which imitates elements moving left
@@ -546,7 +547,7 @@ window.addEventListener('DOMContentLoaded', () => {
             // getting target number from 'data-slide-to'
             const slideTo = e.target.getAttribute('data-slide-to');
             slideIndex = slideTo; // slideTo givex index num to move slide
-            offset = +width.replace(/\D/g, '') * (slideTo - 1); 
+            offset = onlyNum(width) * (slideTo - 1); 
             // offsetting slide by multiplying width of one slide to the number of slide we are headed
             slidesField.style.transform = `translateX(-${offset}px)`;
 
