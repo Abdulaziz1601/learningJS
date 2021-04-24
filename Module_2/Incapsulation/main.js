@@ -49,21 +49,21 @@
 class User {
     constructor(name, age) {
         this.name = name;
-        let userAge = age; //Here it won't work
+        this._age = age; // Programmers came to conclusion that "_" makes, vars private, but it isn't syntaxis
     }
 
    
     say() {
-        console.log(`User name: ${this.name} age: ${this.userAge}`);
+        console.log(`User name: ${this.name} age: ${this._age}`);
     }
 
-    getAge() { //this method can access PRIVATE age property 
-        return userAge;
+    get age() { //this method can access PRIVATE age property 
+        return this._age;
     }
 
-    setAge(age) { //Here we can assign PRIVATE age, and also we can check and assign checked userAge 
+    set age(age) { //Here we can assign PRIVATE age, and also we can check and assign checked userAge 
         if (typeof age  === 'number' && age > 0 && age < 110) {
-            userAge = age;
+            this._age = age;
         } else {
             console.log('Invalid value!');
         }
@@ -73,11 +73,7 @@ class User {
 
 
 const person = new User('Abdulaziz', 19);
-// console.log(person.name); 
-// console.log(person.getAge()); //getMethod can get the value
-
-// person.setAge(30); //setMethod can change the value and also check
-// person.setAge(300); //setMethod can change the value and also check
-// console.log(person.getAge()); //getMethod can get the value
-
+console.log(person.age); // Here getter is used, we got 19 from private age 
+person.age = 99; // Here setter is used, we set private age to 99
+console.log(person.age); // Here getter is used,  we got 99 from private age 
 person.say(); 
