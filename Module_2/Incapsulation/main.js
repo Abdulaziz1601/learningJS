@@ -44,3 +44,40 @@
 
 // person.say(); 
 
+//Working with classes
+"use strict";
+class User {
+    constructor(name, age) {
+        this.name = name;
+        let userAge = age; //Here it won't work
+    }
+
+   
+    say() {
+        console.log(`User name: ${this.name} age: ${this.userAge}`);
+    }
+
+    getAge() { //this method can access PRIVATE age property 
+        return userAge;
+    }
+
+    setAge(age) { //Here we can assign PRIVATE age, and also we can check and assign checked userAge 
+        if (typeof age  === 'number' && age > 0 && age < 110) {
+            userAge = age;
+        } else {
+            console.log('Invalid value!');
+        }
+    }
+
+}
+
+
+const person = new User('Abdulaziz', 19);
+// console.log(person.name); 
+// console.log(person.getAge()); //getMethod can get the value
+
+// person.setAge(30); //setMethod can change the value and also check
+// person.setAge(300); //setMethod can change the value and also check
+// console.log(person.getAge()); //getMethod can get the value
+
+person.say(); 
