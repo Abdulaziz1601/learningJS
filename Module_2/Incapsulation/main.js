@@ -73,7 +73,9 @@ class User {
 
 
 const person = new User('Abdulaziz', 19);
-console.log(person.age); // Here getter is used, we got 19 from private age 
-person.age = 99; // Here setter is used, we set private age to 99
-console.log(person.age); // Here getter is used,  we got 99 from private age 
+// It is bad practice to use privats like this, but we cannot do anything about it,
+// This code  do NOT use getters and setters
+console.log(person._age); 
+person._age = 99;
+console.log(person._age);
 person.say(); 
