@@ -52,9 +52,10 @@ class User {
         this._age = age; // Programmers came to conclusion that "_" makes, vars private, but it isn't syntaxis
     }
 
+    #surname = 'Abdullaev'; //property that is written without constructor, this makes our code private 
    
-    say() {
-        console.log(`User name: ${this.name} age: ${this._age}`);
+    say = () => { //We can make this method arrow function, to not lose this context
+        console.log(`User name: ${this.name} ${this.#surname} age: ${this._age}`);
     }
 
     get age() { //this method can access PRIVATE age property 
@@ -73,9 +74,5 @@ class User {
 
 
 const person = new User('Abdulaziz', 19);
-// It is bad practice to use privats like this, but we cannot do anything about it,
-// This code  do NOT use getters and setters
-console.log(person._age); 
-person._age = 99;
-console.log(person._age);
+console.log(person.surname); //undefined
 person.say(); 
