@@ -45,34 +45,64 @@
 // person.say(); 
 
 //Working with classes
-"use strict";
-class User {
-    constructor(name, age) {
-        this.name = name;
-        this._age = age; // Programmers came to conclusion that "_" makes, vars private, but it isn't syntaxis
-    }
+// "use strict";
+// class User {
+//     constructor(name, age) {
+//         this.name = name;
+//         this._age = age; // Programmers came to conclusion that "_" makes, vars private, but it isn't syntaxis
+//     }
 
-    #surname = 'Abdullaev'; //property that is written without constructor, this makes our code private 
+//     #surname = 'Abdullaev'; //property that is written without constructor, this makes our code private 
    
-    say = () => { //We can make this method arrow function, to not lose this context
-        console.log(`User name: ${this.name} ${this.#surname} age: ${this._age}`);
+//     say = () => { //We can make this method arrow function, to not lose this context
+//         console.log(`User name: ${this.name} ${this.#surname} age: ${this._age}`);
+//     }
+
+//     get age() { //this method can access PRIVATE age property 
+//         return this._age;
+//     }
+
+//     set age(age) { //Here we can assign PRIVATE age, and also we can check and assign checked userAge 
+//         if (typeof age  === 'number' && age > 0 && age < 110) {
+//             this._age = age;
+//         } else {
+//             console.log('Invalid value!');
+//         }
+//     }
+
+// }
+
+
+// const person = new User('Abdulaziz', 19);
+// console.log(person.surname); //undefined
+// person.say();
+
+"use strict";
+class Mask {
+    constructor (color, type) {
+        this.color = color;
+        this.type = type;
     }
 
-    get age() { //this method can access PRIVATE age property 
-        return this._age;
-    }
+    #layer = 'three layers';
 
-    set age(age) { //Here we can assign PRIVATE age, and also we can check and assign checked userAge 
-        if (typeof age  === 'number' && age > 0 && age < 110) {
-            this._age = age;
+    set layer(layer){
+        if (layer === 'one') {
+            this.#layer = `${layer} layer`;
         } else {
-            console.log('Invalid value!');
+            this.#layer = `${layer} layers`;
         }
     }
+    get layer() {
+        return this.#layer;
+    }
 
+    maskData = () => {
+        console.log(`masks for ${this.type} with ${this.#layer} and with ${this.color} color`);
+    }
 }
 
-
-const person = new User('Abdulaziz', 19);
-console.log(person.surname); //undefined
-person.say(); 
+const medicinMask = new Mask('blue', 'adults')
+console.log(medicinMask.layer);
+medicinMask.layer = 'one';
+medicinMask.maskData();
