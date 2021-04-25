@@ -75,34 +75,34 @@
 
 // const person = new User('Abdulaziz', 19);
 // console.log(person.surname); //undefined
-// person.say();
+// // person.say();
 
-"use strict";
-class Mask {
-    constructor (color, type) {
-        this.color = color;
-        this.type = type;
-    }
+// "use strict";
+// class Mask {
+//     constructor (color, type) {
+//         this.color = color;
+//         this.type = type;
+//     }
 
-    #layer = 'three layers';
+//     #layer = 'three layers';
 
-    set layer(layer){
-        if (layer === 'one') {
-            this.#layer = `${layer} layer`;
-        } else {
-            this.#layer = `${layer} layers`;
-        }
-    }
-    get layer() {
-        return this.#layer;
-    }
+//     set layer(layer){
+//         if (layer === 'one') {
+//             this.#layer = `${layer} layer`;
+//         } else {
+//             this.#layer = `${layer} layers`;
+//         }
+//     }
+//     get layer() {
+//         return this.#layer;
+//     }
 
-    maskData = () => {
-        console.log(`masks for ${this.type} with ${this.#layer} and with ${this.color} color`);
-    }
-}
+//     maskData = () => {
+//         console.log(`masks for ${this.type} with ${this.#layer} and with ${this.color} color`);
+//     }
+// }
 
-const medicinMask = new Mask('blue', 'adults')
-console.log(medicinMask.layer);
-medicinMask.layer = 'one';
-medicinMask.maskData();
+// const medicinMask = new Mask('blue', 'adults')
+// console.log(medicinMask.layer);
+// medicinMask.layer = 'one';
+// medicinMask.maskData();
