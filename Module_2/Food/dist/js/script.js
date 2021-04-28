@@ -1,0 +1,19 @@
+window.addEventListener('DOMContentLoaded', () => {
+    const tabs = require('./modules/tabs'),
+          modal = require('./modules/modal'),
+          timer = require('./modules/timer'),
+          cards = require('./modules/cards'),
+          calc = require('./modules/calc'),
+          forms = require('./modules/forms'),
+          slider = require('./modules/slider');
+
+    // We imported all function, so we have to call them
+
+    tabs();
+    modal(); 
+    timer(); 
+    cards(); 
+    calc(); 
+    forms(); 
+    slider(); 
+}); 
