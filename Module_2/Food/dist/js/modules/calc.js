@@ -108,4 +108,4 @@ function calc() {
     getDynamicInformation('#age');
 }
 
-module.exports = calc;
+export default  calc; // changed commonJS to es6 module structure

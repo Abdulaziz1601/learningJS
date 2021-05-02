@@ -1,17 +1,17 @@
-function slider(params) {
-    
-    // Slider
-
-    const slides = document.querySelectorAll('.offer__slide'),
-          slider = document.querySelector('.offer__slider'),
-          prev = document.querySelector('.offer__slider-prev'),
-          next = document.querySelector('.offer__slider-next'),
-          total = document.querySelector('#total'),
-          current = document.querySelector('#current'),
-          slidesWrapper = document.querySelector('.offer__slider-wrapper'), // parent of a window 
-          slidesField = document.querySelector('.offer__slider-inner'), // window to show slides
-          width = window.getComputedStyle(slidesWrapper).width; // width of the parentWindow
+function slider({container, slide, nextArrow, prevArrow, totalCounter, currentCounter, wrapper, field}) {
+   
     let slideIndex = 1; //Index to manipulate slides
+    let offset = 0; // offset to move slides
+
+    const slides = document.querySelectorAll(slide),
+          slider = document.querySelector(container),
+          prev = document.querySelector(prevArrow),
+          next = document.querySelector(nextArrow),
+          total = document.querySelector(totalCounter),
+          current = document.querySelector(currentCounter),
+          slidesWrapper = document.querySelector(wrapper), // parent of a window 
+          slidesField = document.querySelector(field), // window to show slides
+          width = window.getComputedStyle(slidesWrapper).width; // width of the parentWindow
 
     if (slides.length < 10) { // If length of slide is less than 10, then we add 0
         total.textContent = `0${slides.length}`;
@@ -21,7 +21,6 @@ function slider(params) {
         current.textContent = slideIndex;
     }
 
-    let offset = 0; // offset to move slides
     slidesField.style.width = 100 * slides.length + '%'; //In our case it is 400%
     slidesField.style.display = 'flex'; // display:flex helps us to make elements in a row
     slidesField.style.transition = '.5s all'; //smooth transition
@@ -161,4 +160,4 @@ function slider(params) {
     });
 }
 
-module.exports = slider;
+export default slider;

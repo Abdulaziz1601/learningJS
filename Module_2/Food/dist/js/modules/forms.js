@@ -1,7 +1,9 @@
-function forms() {
-    //Forms
+import {closeModal, openModal} from './modal';
+import {postData} from '../services/services';
+function forms(formSelector, modalTimerId) {
+    //Forms  
 
-    const forms =  document.querySelectorAll('form'); //We are getting all forms
+    const forms =  document.querySelectorAll(formSelector); //We are getting all forms
 
     const message = {
         loading: 'img/forms/spinner.svg',
@@ -13,17 +15,6 @@ function forms() {
         bindPostData(item); 
     });
 
-    const postData = async (url, data) => { //Means that here will be some aschronous code. async cannot be used without await and vice versa
-        const res = await fetch(url, { //Here fetch will return some promise but will not complete, so we use await
-            method: "POST",
-            headers:{ 
-                "Content-type": "application/json"
-            },
-            body: data
-        } ); 
-        // We dont know how much time, It will proccess the json data, so here we will use await to make code asynchronous (by standart it will wait 30 sec)
-        return await res.json(); //res.json  will give error, so we have to change this func to synchronous code
-    };
 
     function bindPostData(form) {
         form.addEventListener('submit', (e) => {
@@ -77,7 +68,7 @@ function forms() {
         const prevModalDialog = document.querySelector('.modal__dialog');
         //We are hiding this element, before showing modal 
         prevModalDialog.classList.add('hide');// content is hidden, not deleted - in case user wants to access IT
-        openModal(); //opens modal
+        openModal('.modal', modalTimerId); //opens modal
 
         // Creating new THANKS content
         const thanksModal = document.createElement('div');// Wrapper is created inside main .modal class
@@ -95,7 +86,7 @@ function forms() {
             thanksModal.remove();
             prevModalDialog.classList.add('show');
             prevModalDialog.classList.remove('hide');
-            closeModal();
+            closeModal('.modal');
         }, 4000);
     }
 
@@ -105,4 +96,4 @@ function forms() {
 
 }
 
-module.exports = forms;
+export default forms;

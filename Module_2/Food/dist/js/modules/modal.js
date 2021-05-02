@@ -1,28 +1,39 @@
-function modal() {
+//DRY don't repeat yourself, code was written 2, so copied, because of this we created fucntion
+function openModal(modalSelector, modalTimerID) {
+    const modal = document.querySelector(modalSelector);//  '.modal'
+
+    modal.classList.add('show');
+    modal.classList.remove('hide');
+    document.body.style.overflow = 'hidden';
+
+    console.log(modalTimerID);
+    if (modalTimerID) {
+        clearInterval(modalTimerID); //Deletes an interval if user is already opened a modal
+    }   
+}
+
+function closeModal(modalSelector) {
+    const modal = document.querySelector(modalSelector);//  '.modal'
+
+    modal.classList.add('hide');
+    modal.classList.remove('show');
+    document.body.style.overflow = ''; //browser automatically knows what to do
+}
+
+function modal(triggerSelector, modalSelector, modalTimerID) { //Adding args, to make our module reusable: to use open and close Modal funcs
     // Modal
 // All variables are taken
-    const modalTrigger = document.querySelectorAll('[data-modal]'), //data attributes are appropriate here
-          modal = document.querySelector('.modal');//data attributes are appropriate here
+    const modalTrigger = document.querySelectorAll(triggerSelector), // [data-modal]'
+          modal = document.querySelector(modalSelector);//  '.modal'
 
-    //DRY don't repeat yourself, code was written 2, so copied, because of this we created fucntion
-    function openModal() {
-        modal.classList.add('show');
-        modal.classList.remove('hide');
-        document.body.style.overflow = 'hidden';
-        clearInterval(modalTimerID); //Deletes an interval if user is already opened a modal
-    }
 
-    function closeModal() {
-        modal.classList.add('hide');
-        modal.classList.remove('show');
-        document.body.style.overflow = ''; //browser automatically knows what to do
-    }
-
-    modalTrigger.forEach( item => item.addEventListener('click', openModal) );// adding events to all triggers to open modal
+    modalTrigger.forEach( btn =>
+        btn.addEventListener('click', () => openModal(modalSelector, modalTimerID)) // if we write like these: openModal(modalSelector), it will call after func immideatly after adding ev.listener so we have to wrap func like this: () => openModal(modalSelector), then func will be called when user will "click" on btn 
+    );
     
     modal.addEventListener('click', (e) => {
         if(e.target === modal || e.target.getAttribute('data-close') == '') {
-            closeModal();    
+            closeModal(modalSelector, modalTimerID);    
         }
     });
 
@@ -30,7 +41,7 @@ function modal() {
 
     document.addEventListener('keydown', (e) => {
         if (e.code == 'Escape' && modal.classList.contains('show')){ //If modal is open
-            closeModal();
+            closeModal(modalSelector, modalTimerID);
         }
     });
     // With toggle function
@@ -48,7 +59,6 @@ function modal() {
 
     // Task is when user scrolls till some point modal pops up
 
-    const modalTimerID = setTimeout(openModal, 50000); // After  50 seconds modal pops up
 
     //If user scrolls till end, then modal appears
 
@@ -56,13 +66,15 @@ function modal() {
         // user-scrolled-part      height-that-is-visible-to-client        whole-height-of-doc
         if(window.pageYOffset + document.documentElement.clientHeight >= document.
         documentElement.scrollHeight) {
-            openModal();
+            openModal(modalSelector, modalTimerID);
             window.removeEventListener('scroll', showModalByScroll); // after event is used it is removed but modal is still shown only event is removed
         }
     }
     window.addEventListener('scroll', showModalByScroll); // We cannot put here , {once: true} as 3RD arg because we added event to window so scroll changes in window
-    // much time so when user starts scrolling and ends it event is triggered once and deleted
+    // much time so when usemodalSelectorr starts scrolling and ends it event is triggered once and deleted
 
 }
 
-module.exports = modal;
+export default modal;
+export {closeModal}; //Exported funcs, to use them in another script
+export {openModal};
