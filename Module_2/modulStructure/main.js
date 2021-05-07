@@ -2,7 +2,7 @@
 
 // By using modules, we will not worry about same names of variables, and using global memory
 
-// We wanted to create global app variable, it have us error because, app var was already created
+// We wanted to create global app variable, it gave us error because, app var was already created
 const app = '212312'; // Uncaught SyntaxError: Identifier 'app' has already been declared
 
 // modules help us hide vars in local memory, so they will not come over.
