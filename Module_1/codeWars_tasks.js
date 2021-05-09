@@ -34,21 +34,39 @@
 //   }
 // console.log(addBinary(1,3)); 
 
-function solution(number){
-    let sum = 0;
-    for(let i=1;i<number; i++) {
+// function solution(number){
+//     let sum = 0;
+//     for(let i=1;i<number; i++) {
 
-      if(i < 0) {
-        return 0;
-      } else if(i % 3 == 0 && i % 5 == 0) {
-        sum += i;
-        continue;
-      } else if(i % 3 == 0 || i % 5 == 0) {
-        sum += i;
-      }
-    }
-    return sum;
-}
-console.log(solution(30));
+//       if(i < 0) {
+//         return 0;
+//       } else if(i % 3 == 0 && i % 5 == 0) {
+//         sum += i;
+//         continue;
+//       } else if(i % 3 == 0 || i % 5 == 0) {
+//         sum += i;
+//       }
+//     }
+//     return sum;
+// }
+// console.log(solution(30));
 
 // all true perfect solution()
+
+
+
+// Write a function filterLongWords that takes a string sentence and an integer n.
+
+// Return a list of all words that are longer than n.
+
+// Example:
+
+// filterLongWords("The quick brown fox jumps over the lazy dog", 4) = ['quick', 'brown', 'jumps']
+// const sentence = "The quick brown fox jumps over the lazy dog";
+// function filterLongWords(sentence, n) {
+// 	const longWords = [];
+// 	sentence.split(" ").forEach( element => {
+// 		if (element.length > n) {longWords.push(element);}
+// 	});
+// 	return longWords;
+// }
