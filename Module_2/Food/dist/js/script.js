@@ -1,4 +1,5 @@
 require('es6-promise').polyfill(); //pollyfill of promises were added. so we can use promises
+import 'nodelist-foreach-polyfill'; //It will import automatically to bundle, from node modules 'cause we got foreach polyfill from npm
 
 import tabs from './modules/tabs'; //We changed commonJS syntax to es6 module struct
 import modal from './modules/modal'; //import stmnts must be at top
