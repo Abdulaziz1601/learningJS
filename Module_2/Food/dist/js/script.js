@@ -1,3 +1,5 @@
+require('es6-promise').polyfill(); //pollyfill of promises were added. so we can use promises
+
 import tabs from './modules/tabs'; //We changed commonJS syntax to es6 module struct
 import modal from './modules/modal'; //import stmnts must be at top
 import timer from './modules/timer';
