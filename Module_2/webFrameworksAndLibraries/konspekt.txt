@@ -1,0 +1,25 @@
+Angular: 
+- node.js - starting point node.js has to be on device to use any libraries or frameworks
+- TypeScript - easy to learn if we know js
+- WebPack - used to bundle all modules and to form whole project
+- MVC pattern - template for creating (projects) apps
+- Angular - documentation is understandible
+
+Difficulty: can be difficult in entry point.
+
+
+React:
+- node.js - starting point node.js has to be on device to use any libraries or frameworks
+- JSX preprocessor - injects HTML to JS
+- Babel transplitter - React and JSX is compiled with help of Babel, turns combined HTML+JS to normal JS
+- WebPack - bundles all modules to one file
+- React - documentation is understandible  
+
+Difficulty: easy in entry point.
+
+Vue:
+- node.js - starting point node.js has to be on device to use any libraries or frameworks
+- WebPack - for bundle
+- Vue - documentation easy to read 
+
+Difficulty: VERY easy to learn.
