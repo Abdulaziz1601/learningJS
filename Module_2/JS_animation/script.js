@@ -1,25 +1,45 @@
-const btn = document.querySelector('.btn');
+const btn = document.querySelector('.btn'),
+      elem = document.querySelector('.box');
 let timerId,
     i = 0;
 
-// Practice
-function myAnimation() {
-    const elem = document.querySelector('.box');
-    let pos = 0;
-    const id = setInterval(frame, 10);
+// function myAnimation() {
+//     let pos = 0;
+//     const id = setInterval(frame, 10);
 
-    function frame() {
-        if (pos == 300) {
-            clearInterval(id);
-        } else {
-            pos++;
-            elem.style.top = pos + 'px';
-            elem.style.left = pos + "px";
-        }
+//     function frame() {
+//         if (pos == 300) {
+//             clearInterval(id);
+//         } else {
+//             pos++;
+//             elem.style.top = pos + 'px';
+//             elem.style.left = pos + "px";
+//         }
+//     }
+// }
+
+// Renewed function with requestAnimationFrame()
+
+let pos = 0;
+
+function myAnimation() {
+    // We increment pos and change values
+    pos++;
+    elem.style.top = pos + 'px';
+    elem.style.left = pos + "px";
+
+    if (pos < 300) {
+        requestAnimationFrame(myAnimation); //takes only one arg of callback animation
     }
+    //this func is really eloquent and synchronising with pc
+
 }
 
-btn.addEventListener('click', myAnimation);
+btn.addEventListener('click', () => requestAnimationFrame(myAnimation));
+
+let id = requestAnimationFrame(myAnimation);
+cancelAnimationFrame(id);
+// As in setInterval here we can stop animation with an id
 
 // btn.addEventListener('click', () => {
 //     // const timerId = setTimeout( logger, 2000);
