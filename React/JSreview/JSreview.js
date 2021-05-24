@@ -45,18 +45,49 @@
 
 // MAP and FILTER methods
 
-let names = ['Ivan', 'Ann', 'Ksenia', 'Voldemart'];
+// let names = ['Ivan', 'Ann', 'Ksenia', 'Voldemart'];
 
-let shortNames = names.filter((name => { 
-    return name.length < 5;
-}));
+// let shortNames = names.filter((name => { 
+//     return name.length < 5;
+// }));
 
-console.log(shortNames); // ["Ivan", "Ann"]  
+// console.log(shortNames); // ["Ivan", "Ann"]  
 
-let answers = ['IvAn', 'AnnA', 'AbDuLaZiZ'];
+// let answers = ['IvAn', 'AnnA', 'AbDuLaZiZ'];
 
-answers = answers.map((answer) => {
-    return answer.toLowerCase();
-});
+// answers = answers.map((answer) => {
+//     return answer.toLowerCase();
+// });
 
-console.log(answers);
+// console.log(answers);
+
+// Interpolation
+
+// const uName = 'abdulaziz',
+//       uSurname = 'abdullaev';
+    
+// console.log(`User's name is ${uName}, user's surname is ${uSurname}`);
+
+// default parameters of function
+
+// function fetchData(data, count=0) { // In default, count is equal to 0
+//     console.log(`Data: ${data}, quantity: ${count}`);
+// }
+
+// fetchData('something');
+
+// REST operator
+// function max (...numbers) { //REST parameters let's us to take all numbers
+//     console.log(numbers);
+// }
+
+// max(1,2,3,4,5,6,7); //[1, 2, 3, 4, 5, 6, 7]
+
+// SPREAD operator
+
+// const arr1 = [1, 2, 3]
+    //   arr2 = [5, 6, 9];
+
+//Our array is spreaded, so in max method herea are only numbers:  1, 2, 3, 5, 6, 9
+// const res = Math.max(...arr1, ...arr2, 99, 7);  //we can also add antoher elements
+// console.log(res);
