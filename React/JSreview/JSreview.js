@@ -91,3 +91,59 @@
 //Our array is spreaded, so in max method herea are only numbers:  1, 2, 3, 5, 6, 9
 // const res = Math.max(...arr1, ...arr2, 99, 7);  //we can also add antoher elements
 // console.log(res);
+
+// SPREAD operator with objects
+
+// const user =  {
+//     name: "default",
+//     pass: "qwerty",
+//     rigths: 'user'
+// };
+
+// const admin = {
+//     name: 'admin',
+//     pass: 'root'
+// };
+
+// const res = Object.assign(user, admin); //we overwritten admin to user
+
+// Using spread operator
+
+// const res = {...user, ...admin}; //spreaded our objects and assigned it to res obj
+// console.log(res); //{ name: 'admin', pass: 'root', rigths: 'user' }
+
+// const res = Object.assign({}, user, admin); //we combined user + admin and created new obj
+// console.log(res); //{ name: 'admin', pass: 'root', rigths: 'user' }
+
+// const x = 25, y = 10;
+
+// const coords = {
+//     x: x,
+//     y: y
+// };
+// We can write above code like this, and it will be the same
+// const coords = { // if we have variables that have the same names, which has to be assigned
+//     x, // same as x: x
+//     y
+// };
+
+const x = 25, y = 10;
+// old version VS Modern version
+const coords = {
+    x: x, 
+    y: y, 
+    calcSqr: function() {
+        console.log(this.x * this.y); // calculating area
+    }
+}
+
+const coords = {x, y,
+    calcSqr() { //method we write like this:
+        console.log(this.x * this.y); // calculating area
+    }
+}; // same code as above
+
+console.log(coords);
+coords.calcSqr();
+
+
