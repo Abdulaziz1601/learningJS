@@ -127,23 +127,106 @@
 //     y
 // };
 
-const x = 25, y = 10;
-// old version VS Modern version
-const coords = {
-    x: x, 
-    y: y, 
-    calcSqr: function() {
-        console.log(this.x * this.y); // calculating area
+// const avatar = 'Photo';
+
+
+// const user =  {
+//     name: "default",
+//     pass: "qwerty",
+//     rigths: 'user'
+// };
+
+// const admin = {
+//     name: 'admin',
+//     pass: 'root'
+// };
+    
+// const res = {...user, ...admin, avatar}; //spreaded our objects and assigned it to res obj
+// console.log(res); // { name: 'admin', pass: 'root', rigths: 'user', avatar: 'Photo' }
+
+// const x = 25, y = 10;
+// // old version VS Modern version
+// const coords = {
+//     x: x, 
+//     y: y, 
+//     calcSqr: function() {
+//         console.log(this.x * this.y); // calculating area
+//     }
+// }
+
+// const coords = {x, y,
+//     calcSqr() { //method we write like this:
+//         console.log(this.x * this.y); // calculating area
+//     }
+// }; // same code as above
+
+// console.log(coords);
+// coords.calcSqr();
+
+// destructuring of objects and arrays
+
+// const user =  {
+//     name: {
+//         first: "Abdulaziz",
+//         second: "Abdullaev"
+//     },
+//     pass: "qwerty",
+//     rights: 'user'
+// };
+
+// // If we wanna reuse It
+// const userName = user.name;
+
+// // To make it easy we use destructuring
+// const {name: {first, second}, pass, rights} = user; //Here we take object inside an object(name)
+
+// // We can check that we got all three properties in three resuable variables 
+
+// console.log(first, second);
+
+// function connect({
+//     host = 'localhost',
+//     port = 3000,
+//     user = "default"} = {}){ // we assigned  this = {}, because if user does not write anything, it won't be an error
+//         console.log(`host: ${host}, port: ${port}, user: ${user}`); // host: localhost, port: 232, user: default
+// }
+
+// connect({  // also  we can enter, at any sequence
+//     port: 232 //user can forgot to enter another arguments, so by defult we already have them
+// });
+
+// const numbers = [3, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+// const [a, b, c] = numbers;
+// console.log(a, b, c); //  3, 5, 6
+
+// const [, , , , , , , , , last] = numbers;
+// console.log(last); // 13 last number in array
+
+// if we have array in array
+
+// const numbers = [[3, 5], [6, 6]];
+// To acces first elem of first array
+// numbers[0][0];
+
+// We can use destructurig here
+
+// const [[a,b], [c, d]] = numbers;
+
+// console.log(a, b, c, d);
+
+const country = {
+    name: 'England',
+    population: 200000,
+    gender: {
+        male: ['15%', '40%'],
+        female: ['16%', '29%']
     }
 }
 
-const coords = {x, y,
-    calcSqr() { //method we write like this:
-        console.log(this.x * this.y); // calculating area
-    }
-}; // same code as above
+// to take first elem in male arr we had to
+// console.log(country.gender.male[0]); // 15%
 
-console.log(coords);
-coords.calcSqr();
+// easier way is 
 
-
+const {gender:{male:[malePopAbove18, maleAdult], female:[femalePopAbove18, femaleAdult]}} = country;
+console.log(malePopAbove18, femaleAdult); // 15%, 29%
