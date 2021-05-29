@@ -1,6 +1,6 @@
 const employers = ['Alex', '', 'ludmila', 'Viktor', '', 'oleg', 'iNna', 'Ivan', 'Alex', 'Olga', ' Ann'];
 
-const employersNames = employers.filter((employer) => employer.length > 0 && employer.length != 0).map((employerName) => employerName.toLowerCase().replace(/\s/g, ""));
+const employersNames = employers.filter((employer) => employer).map((employerName) => employerName.toLowerCase().replace(/\s/g, ""));
 
 let sponsors = {
     cash: [40000, 5000, 30400, 12000],
