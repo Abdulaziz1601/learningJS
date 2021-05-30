@@ -21,6 +21,10 @@ import reportWebVitals from './reportWebVitals';
 // EX:
 
 const Header = () => {
+	//Pretending to put maliciious script injection,  so we put malicious script that will pop alert with some error
+	// const scr = '<script>alert("Error")</script>'
+
+	// return <h2>{scr}!</h2> // it will just show like text in h1 tag
 	return <h2>Hello World!</h2>
 }
 
@@ -28,18 +32,36 @@ const Header = () => {
 // 	return <input type="text" placeholder="Type Here!" />
 // }
 const Field = () => {
+
+	const styledField = {
+		width: '900px'
+	}
 	const holder = "Enter here!"
-	return <input type="text" placeholder = {holder} /> // if we wanna add dynamic text
+	return <input
+				style={styledField} // using style from object
+				type="text"
+				placeholder = {holder} // we have to write all html attributes in camelCase
+				autoComplete=""
+				className="first" // adding a class
+				// class="first" // ERROR!!!
+				htmlFor="someLabel" //for attr to relate input and label
+	
+	/> // if we wanna add dynamic text
 }
 
 const Btn = () => {
 	const text = "Log In"; // we can add text
+
+
+	const logged = true; // check if user is logged In
+	// if user is logged in, btn do not show anything, if user didn't log in it will say to log IN
+	return <button>{logged ? null : text}</button> // To put here text we have to add it in square brackets {}
 	// const res = () => {
 	// 	return 'Log In, please'
 	// } // we can add functions that return text
 	// const p = {} // we cannot put there objects, error
 	// const p = <p>Log in</p>
-	return <button>{text}</button> // To put here text we have to add it in square brackets {}
+
 }
 
 const App = () => {
