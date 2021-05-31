@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './app-header.css'
+
 const AppHeader = () => {
     // Making it static then we will change it
     return (
