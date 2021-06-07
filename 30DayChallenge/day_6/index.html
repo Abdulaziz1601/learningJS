@@ -35,21 +35,29 @@
             });
         }
 
-        function displayMatches(matches, selector) {
-            selector.innerHTML='';
+        function numberWithCommas(x) {
+            return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
 
-            matches.forEach(element => {
-                selector.innerHTML += 
-                                    `<li style="margin-top:5px">City: ${element.city}</li>
-                                    <li>State: ${element.state}</li>`;
-            });
+        function displayMatches() {
+            const matchArray = findMatches(this.value, cities);
+            const html = matchArray.map(({city, state, population}) => {
+                const regex = new RegExp(this.value, 'ig');
+                const cityName = city.replace(regex, `<span class="hl">${this.value}</span>`);
+                const stateName = state.replace(regex, `<span class="hl">${this.value}</span>`);
+
+                return `
+                    <li>
+                        <span class="name">${cityName}, ${stateName}</span>
+                        <span class="population">${numberWithCommas(population)}</span>
+                    </li>
+                `;
+            }).join('');
+            suggestions.innerHTML = html;
         }
 
         
-        searchInput.addEventListener('keyup', (e) => {
-            const matches = findMatches(e.target.value, cities)
-            displayMatches(matches, suggestions);
-        });
+        searchInput.addEventListener('keyup', displayMatches);
     </script>
 </body>
 
