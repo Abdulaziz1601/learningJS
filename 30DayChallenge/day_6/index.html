@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Type Ahead 👀</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <form class="search-form">
+        <input type="text" class="search" placeholder="City or State">
+        <ul class="suggestions">
+            <li>Filter for a city</li>
+            <li>or a state</li>
+        </ul>
+    </form>
+    <script>
+        const endpoint =
+            'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json',
+            searchInput = document.querySelector('.search'),
+            suggestions = document.querySelector('.suggestions'),
+            cities = [];
+
+        fetch(endpoint)
+            .then(blob => blob.json()) // we have to convert from raw blob data to json, so that returns us json and we handle with "then"
+            .then(data => cities.push(...data)); // we spreaded into cities array 1000 length array
+        
+        function findMatches(wordToMatch, cities) {
+            return cities.filter(place => {
+                // HEre we need to find, if city or state matches
+                const regex = new RegExp(wordToMatch, 'gi');
+                return place.city.match(regex) || place.state.match(regex)
+            });
+        }
+
+        function displayMatches(matches, selector) {
+            selector.innerHTML='';
+
+            matches.forEach(element => {
+                selector.innerHTML += 
+                                    `<li style="margin-top:5px">City: ${element.city}</li>
+                                    <li>State: ${element.state}</li>`;
+            });
+        }
+
+        
+        searchInput.addEventListener('keyup', (e) => {
+            const matches = findMatches(e.target.value, cities)
+            displayMatches(matches, suggestions);
+        });
+    </script>
+</body>
+
+</html>
+© 2021 GitHub, Inc.
