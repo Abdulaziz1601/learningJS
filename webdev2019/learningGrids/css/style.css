@@ -1,0 +1,39 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.grid-container {
+    display: grid; /*It makes our container grid*/
+    /* grid-template-columns: 200px 200px 200px; makes 3 of 200 pixeled columens  */
+    /* grid-template-columns: 50% 250px 200px; we can also play around with some values */
+    /* to create rows we need to */
+    /* grid-template-rows: 60px 150px 60px ; 3 rows of 60 pixels   */
+    /* shorthand property for  grid-template-columns and rows*/
+    /* property for first for ROWS    second for COLUMNS */
+    grid-template: 60px 150px 60px  / 200px 200px 200px;
+    grid-template: 100px 100px 100px / 100px 100px 100px;
+
+    /* Gaps between columns */
+    /* grid-column-gap: 20px; this property was removed, it is not used */
+    /* column-gap: 20px;
+    /* Creating gap between rows 
+    row-gap: 20px;*/
+    /* for gaps we have shorthand property */
+    /* grid-gap: 20px; ths property is old, we cannot use it */
+    gap: 20px; /*same as the code above*/
+
+} 
+
+.grid-elem {
+    /* height: 50px; */
+    background-color: rgba(1, 1, 96, 1);
+    color: #fff;
+    line-height: 50px;
+    text-align: center;
+    font-size: 26px;
+    border: 1px solid #000;
+    border-radius: 4px;
+
+}

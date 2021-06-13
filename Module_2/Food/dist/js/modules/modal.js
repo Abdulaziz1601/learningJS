@@ -58,10 +58,7 @@ function modal(triggerSelector, modalSelector, modalTimerID) { //Adding args, to
     // });
 
     // Task is when user scrolls till some point modal pops up
-
-
     //If user scrolls till end, then modal appears
-
     function showModalByScroll() {
         // user-scrolled-part      height-that-is-visible-to-client        whole-height-of-doc
         if(window.pageYOffset + document.documentElement.clientHeight >= document.
