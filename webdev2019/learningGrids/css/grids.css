@@ -1,0 +1,33 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.grid-container {
+    width: 600px; 
+    /* height: 600px; */
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 200px 200px 200px;
+    /* In grids we have imlicit grids and explicit grids
+    So there we have 10 elems, 9 elems in explicit grid
+    10th elem is in imlicit grid, that is created by the browser */
+    
+    /* So we have properties that control implicit grids  */
+    grid-auto-rows: 200px; /*  So here we said: grid which was not fitting in explicit grid, to be 200px in row */
+    /* So when smth is added dynamically our grid will stay same */
+    grid-auto-columns: 200px;
+} 
+
+.grid-elem {
+    /* height: 50px; */
+    background-color: rgba(1, 1, 96, 1);
+    color: #fff;
+    line-height: 50px;
+    text-align: center;
+    font-size: 26px;
+    border: 1px solid #000;
+    border-radius: 4px;
+
+}
