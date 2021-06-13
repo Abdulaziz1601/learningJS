@@ -1,0 +1,32 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.grid-container {
+   width: 600px; 
+   height: 600px;
+   display: grid;
+    /* grid-template-columns: 1fr 1fr 1fr; */
+    /* grid-template-columns: 1fr 2fr 1fr; if we wanna make our column at center 50% and others 25% */
+    grid-template-rows: 1fr 1fr 1fr;
+    /* When we have a lot of cols or rows, we don't have to write all of them manually */
+    /* grid-template-columns: repeat(3, 1fr); same as  grid-template-columns: 1fr 1fr 1fr; */
+    /* grid-template-columns: repeat(3, 1fr) 20px; we can also combine, here we have 4th col as 20px */
+    /* grid-template-columns: repeat(3, 50px 1fr) 20px; we can also combine, here we have 50px and 1fr and 50px and 1fr at last we have col as 20px */
+
+
+} 
+
+.grid-elem {
+    /* height: 50px; */
+    background-color: rgba(1, 1, 96, 1);
+    color: #fff;
+    line-height: 50px;
+    text-align: center;
+    font-size: 26px;
+    border: 1px solid #000;
+    border-radius: 4px;
+
+}
