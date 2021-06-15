@@ -1,0 +1,34 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.grid-container {
+    display: grid; /*It makes our container grid*/
+    /* To define grid's minimum and max sizes we have to use our ---- function */
+    /* So if we have some content bigger than minimum size it will get bigger */
+    /* grid-template-columns: minmax(100px, 300px) minmax(100px, 300px) minmax(100px, 300px); So minimum size is 100px and max is 300px  */
+    /* To make our above code shorter, we will*/
+    grid-template-columns: repeat(3, minmax(100px, 300px)); 
+    /* Rows also canbe adapted */
+    /* max size of rows will be defined automatically */
+    /* for example we have card, in card we have content, if content's size will increase grid-elem will also increase */
+    grid-template-rows: repeat(3, minmax(100px, auto)); 
+
+    grid-auto-rows: minmax(100px, auto);
+
+
+
+} 
+
+.grid-elem {
+    background-color: rgba(1, 1, 96, 1);
+    color: #fff;
+    line-height: 50px;
+    text-align: center;
+    font-size: 26px;
+    border: 1px solid #000;
+    border-radius: 4px;
+
+}
