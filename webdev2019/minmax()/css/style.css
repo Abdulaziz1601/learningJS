@@ -6,17 +6,31 @@
 
 .grid-container {
     display: grid; /*It makes our container grid*/
-    /* To define grid's minimum and max sizes we have to use our ---- function */
+    /* To define grid's minimum and max sizes we have to use our minmax() function */
     /* So if we have some content bigger than minimum size it will get bigger */
     /* grid-template-columns: minmax(100px, 300px) minmax(100px, 300px) minmax(100px, 300px); So minimum size is 100px and max is 300px  */
     /* To make our above code shorter, we will*/
-    grid-template-columns: repeat(3, minmax(100px, 300px)); 
+    /* grid-template-columns: repeat(3, minmax(100px, 300px));  */
+
+    /* auto-fill, we dont have to know how many columns will be, it will calculate automatically */
+    /* grid-template-columns: repeat(auto-fill, minmax(100px, 300px)); We can make slight changes  */
+    /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
+    /* There is SMALL difference between auto-fill and auto-fit, they both automatically fill the space with grid elems
+       auto fit takes whole space and tries to not to leave space for other elems whereas auto fill leaves some space to other elems */
+    /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));  */
+    grid-template-columns: repeat(3, minmax(150px, 300px)); 
+
     /* Rows also canbe adapted */
     /* max size of rows will be defined automatically */
     /* for example we have card, in card we have content, if content's size will increase grid-elem will also increase */
     grid-template-rows: repeat(3, minmax(100px, auto)); 
 
     grid-auto-rows: minmax(100px, auto);
+
+    gap: 10px;
+    /* This property puts implicit grids - grids that will be in future, to be placed by column or row */
+    /* So here it will grow in column, column will increase */
+    grid-auto-flow: column;
 
 
 
