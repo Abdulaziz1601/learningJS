@@ -61,3 +61,20 @@
 // const str = 'My name is R2D2';
 
 // console.log(str.match(/\D/i));
+
+
+function redundant(str) {
+    let foo  = function (str) {
+        return str
+    }
+    let caller;
+    return caller = () => foo(str);
+}
+
+function disemvowel(str) {
+    return str.replace(/[euioa]/ig, '');
+}
+  console.log(disemvowel("Hello Worlds"));
+  
+const REGEXP = /$^/;
+console.log(REGEXP.test(""));

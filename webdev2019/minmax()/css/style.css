@@ -13,6 +13,7 @@
     /* grid-template-columns: repeat(3, minmax(100px, 300px));  */
 
     /* auto-fill, we dont have to know how many columns will be, it will calculate automatically */
+    /* auto-fill как бы говорит “я автоматически заполню строку таким количеством колонок, как это возможно с учетом заданной ширины”.  */
     /* grid-template-columns: repeat(auto-fill, minmax(100px, 300px)); We can make slight changes  */
     /* grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); */
     /* There is SMALL difference between auto-fill and auto-fit, they both automatically fill the space with grid elems
