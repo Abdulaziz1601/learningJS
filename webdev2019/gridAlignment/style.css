@@ -1,0 +1,54 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.grid-container {
+    height: 1000px;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(150px, 300px)); 
+    grid-template-rows: repeat(3, minmax(100px, auto)); 
+    grid-auto-rows: minmax(100px, auto);
+    gap: 10px;
+    /* grid-container, has also aligning property */
+    /* This property, controls all items' align self property */
+    /* align-items: center;
+    /* all items aligned centrally */
+    /* justify-items: center; */ 
+    /* We can use this property, to control content in grid-container */
+    /* justify-content: space-around; */
+
+    /* align-content: space-around; */
+
+    /* So we have combined property od this 2 above */
+    /* place-content: justify-content + align-content; */
+    place-content: space-around space-around;
+
+    /* place-items: justify-items + align-items; */
+    place-items: center center;
+} 
+
+.grid-elem {
+    background-color: rgba(1, 1, 96, 1);
+    color: #fff;
+    line-height: 50px;
+    text-align: center;
+    font-size: 26px;
+    border: 1px solid #000;
+    border-radius: 4px;
+}
+
+/* align-self aligns exclusively one element */
+/* align-self aligns vertically, Y coordinate */
+#first {
+    /* by def, it is in stretch */
+    /* align-self: end; */
+
+    /* justify-self aligns exclusively one element */
+    /* justify-self aligns horizontally, X coordinate */
+    /* justify-self: center; */
+    /* #short for element */
+    place-self: justify-self + align-self;
+    place-self: center end;
+}
