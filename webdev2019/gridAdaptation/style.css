@@ -1,0 +1,62 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(150px, 300px)); 
+    grid-template-rows: repeat(3, minmax(100px, auto)); 
+    grid-auto-rows: minmax(100px, auto);
+    gap: 10px;
+    grid-template-areas:
+    "header header message" /*so message will stretch from 1nd row to 2nd */
+    "blog blog message"
+    "footer footer footer";
+    /* if we want leave some space we have to write . (dot) */
+    /* The main rule here to not leave HOLES or all elements bill brake */
+
+}
+
+#header {
+    /* to mention that this grid-elem has name */
+    grid-area: header;
+    /* implicit and explicit lines */
+    /* implicit lines are built when we give grids some names, like here */
+}
+
+#blog {
+    /* to mention that this grid-elem has name */
+    grid-area: blog;
+}
+
+#message {
+    /* to mention that this grid-elem has name */
+    grid-area: message;
+}
+
+/* We made footer .grid-container and It was also grid-element */
+#footer {
+    /* to mention that this grid-elem has name */
+    grid-area: footer;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+
+.grid-elem {
+    background-color: rgba(1, 1, 96, 1);
+    color: #fff;
+    line-height: 50px;
+    text-align: center;
+    font-size: 26px;
+    border: 1px solid #000;
+    border-radius: 4px;
+}
+
+.orange {
+    background-color: orange;
+
+}
