@@ -19,6 +19,21 @@
 
 }
 
+/* adaptation of elems*/
+@media (max-width: 768px) {
+    .grid-container {
+        /* We just have to redefine previous properties */
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(4, minmax(100px, auto)); 
+        grid-template-areas:
+        "header header"
+        "blog blog"
+        "message message"
+        "footer footer";
+        /* We have also order property, which can change the order of grid-elems */
+    }
+}
+
 #header {
     /* to mention that this grid-elem has name */
     grid-area: header;
@@ -41,6 +56,9 @@
     /* to mention that this grid-elem has name */
     grid-area: footer;
     display: grid;
+    /* We can make our footer "subgrid" */
+    /* subgrid can inherit properties of parent grid container */
+    /* but It won't work, because in a lot of browsers, it is not working */
     grid-template-columns: repeat(3, 1fr);
     gap: 10px;
 }
