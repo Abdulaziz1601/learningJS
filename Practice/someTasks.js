@@ -39,8 +39,21 @@
 
 // console.log(solution(10));
 
-function disemvowel(str) {
-    return str.replace(/[aouie]/ig, "");
+// function disemvowel(str) {
+//     return str.replace(/[aouie]/ig, "");
+// }
+
+//   console.log(disemvowel('HEllo world'));
+
+// Longest word from given sentence
+
+function longestWord(str) {
+	let words = str.split(" ");
+	let longestWord = "";
+	for(let word of words) {
+		if(word.length > longestWord.length) longestWord = word;
+	}
+	return longestWord;
 }
 
-  console.log(disemvowel('HEllo world'));
+console.log(longestWord("Hello my name is Abdulaziz"))
