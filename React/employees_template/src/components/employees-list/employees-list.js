@@ -3,9 +3,10 @@ import EmployeesListItem from "../employees-list-item/employees-list-item";
 import './employees-list.css';
 
 const EmployeesList = ({data}) => {
-    const elements = data.map(({name, salary, prize}) => {
+    const elements = data.map(item => {
+        const {id, ...itemProps} = item
         return (
-            <EmployeesListItem name={name} salary={salary} prize={prize} />
+            <EmployeesListItem key={id} {...itemProps}  />
         )
     });
     return (
