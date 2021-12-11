@@ -33,7 +33,6 @@ class App extends Component {
 			// }
 
 			// Or easy and simple way
-			this.maxId--;
 			return {
 				data: data.filter(item => item.id !== id) // filter doesnot change the original array, so we still save the immutability
 			}
@@ -55,27 +54,40 @@ class App extends Component {
 		});
 	}
 
-	onTogglePrize = (id) => {
-		this.setState(({data}) => {
-			const index = data.findIndex( element => element.id === id);
-			const old = data[index];
-			const newItem = {...old, prize: !old.prize};
-			const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)]
-		
-			return {
-				data: newArr
-			}
-		})
+	onToggleProp = (id, prop) => {
+		this.setState(({data}) => ({
+			data: data.map(item => {   
+				if(item.id === id) {
+					return {...item, [prop]: !item[prop]}
+				}
+				return item;
+			})
+		}))
+
+
 	}
 
-	onToggleRise = (id) => {
-		console.log(`Rise this ${id}`);
-	}
+	// onToggleRise = (id) => {
+	// 	this.setState(({data}) => ({
+	// 		data: data.map(item => {
+	// 			if(item.id === id) {
+	// 				return {...item, rise: !item.rise}
+	// 			}
+	// 			return item;
+	// 		})
+	// 	}))
+	// }
+
+	
 
 	render() {
+		const employees = this.state.data.length;
+		const prized = this.state.data.filter(item => item.prize).length;
 		return (
 			<div className="app">
-				<AppInfo />	
+				<AppInfo 
+					employeeCount={employees}
+					prizeCount={prized}/>	
 	
 				<div className="search-panel">
 					<SearchPanel/>
@@ -85,8 +97,8 @@ class App extends Component {
 				<EmployeesList
 					data={this.state.data}
 					onDelete={this.deleteItem}
-					onTogglePrize={this.onTogglePrize}
-					onToggleRise={this.onToggleRise} />
+					onToggleProp={this.onToggleProp}
+					/>
 				<EmployeesAddForm onAdd={this.addItem} />
 			</div>
 	  );
