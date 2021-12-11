@@ -1,3 +1,5 @@
+import { Component } from 'react';
+
 import AppInfo from '../app-info/app-info';
 import SearchPanel from '../search-panel/search-panel';
 import AppFilter from '../app-filter/app-filter';
@@ -6,26 +8,90 @@ import EmployeesAddForm from '../employees-add-form/employees-add-form';
 
 import './app.css';
 
-function App() {
-	const data = [
-		{name: 'John C.', salary: 800, prize: false, id: 1 },
-		{name: 'Alex M.', salary: 5000, prize: true, id: 2 },
-		{name: 'Jamez S.', salary: 2000, prize: false, id: 3 }
-	];
+class App extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			data: [
+				{name: 'John C.', salary: 800, prize: false, rise: false, id: 1 },
+				{name: 'Alex M.', salary: 5000, prize: true, rise: true, id: 2 },
+				{name: 'Jamez S.', salary: 2000, prize: false, rise: false, id: 3 }
+			]
+		};
+		this.maxId = 4;
+	}
 
-	return (
-		<div className="app">
-			<AppInfo />	
-
-			<div className="search-panel">
-				<SearchPanel/>
-				<AppFilter/>
-			</div>
+	deleteItem = (id) => {
+		this.setState(({data}) => {
+			// const index = data.findIndex(elem => elem.id === id);
 			
-			<EmployeesList data={data}/>
-			<EmployeesAddForm/>
-		</div>
-  );
+			// const before = data.slice(0, index);
+			// const after = data.slice(index + 1);
+
+			// return {
+			// 	data: [...before, ...after] 
+			// }
+
+			// Or easy and simple way
+			this.maxId--;
+			return {
+				data: data.filter(item => item.id !== id) // filter doesnot change the original array, so we still save the immutability
+			}
+		})
+	}
+
+	addItem = (name, salary) => {
+		const newItem = {
+			name,
+			salary,
+			prize: false,
+			rise: false,
+			id: this.maxId++
+		}
+		this.setState(({data}) => {
+			return {
+				data: [...data, newItem]
+			}
+		});
+	}
+
+	onTogglePrize = (id) => {
+		this.setState(({data}) => {
+			const index = data.findIndex( element => element.id === id);
+			const old = data[index];
+			const newItem = {...old, prize: !old.prize};
+			const newArr = [...data.slice(0, index), newItem, ...data.slice(index + 1)]
+		
+			return {
+				data: newArr
+			}
+		})
+	}
+
+	onToggleRise = (id) => {
+		console.log(`Rise this ${id}`);
+	}
+
+	render() {
+		return (
+			<div className="app">
+				<AppInfo />	
+	
+				<div className="search-panel">
+					<SearchPanel/>
+					<AppFilter/>
+				</div>
+				
+				<EmployeesList
+					data={this.state.data}
+					onDelete={this.deleteItem}
+					onTogglePrize={this.onTogglePrize}
+					onToggleRise={this.onToggleRise} />
+				<EmployeesAddForm onAdd={this.addItem} />
+			</div>
+	  );
+	}
+
 }
 
 export default App;
