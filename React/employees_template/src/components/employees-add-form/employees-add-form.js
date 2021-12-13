@@ -6,9 +6,7 @@ class EmployeesAddForm extends Component{
         super(props);
         this.state = {
             name: '',
-            salary: '',
-            isNameValid: false,
-            isSalaryValid: false,
+            salary: ''
         }
     }
 
@@ -16,24 +14,11 @@ class EmployeesAddForm extends Component{
         this.setState({
             [e.target.name]: e.target.value
         })
-        const {name, salary, isNameValid, isSalaryValid} = this.state;
-        if(name.split("").length < 3) {
-            this.setState({isNameValid: false});
-        } else {
-            this.setState({isNameValid: true});
-        }
-
-        if(salary < 50) {
-            this.setState({isSalaryValid: false});
-        } else {
-            this.setState({isSalaryValid: true});
-        }
-        
     }
 
     onSubmit = (e) => {
         e.preventDefault();
-        
+        if(this.state.name.length < 3 || this.state.isSalaryValid) return;
         this.props.onAdd(this.state.name, this.state.salary);
         this.setState({
             name:'',
@@ -41,48 +26,32 @@ class EmployeesAddForm extends Component{
         });
     }
     render() {
-        const {name, salary, isNameValid, isSalaryValid} = this.state;
-        let classNames_1 = "form-control new-post-label ";
-        let classNames_2 = "form-control new-post-label ";
-        if(!isNameValid) {
-            classNames_1 += 'is-invalid ';
-        } else {
-            classNames_1 += 'is-valid ';
-        }
-        if(!isSalaryValid) {
-            classNames_2 += 'is-invalid ';
-        } else {
-            classNames_2 += 'is-valid ';
-        }
+        const {name, salary} = this.state;
+        
         return (
             <div className="app-add-form">
                 <h3>Добавьте нового сотрудника</h3>
                 <form
                     className="add-form d-flex"
                     onSubmit={this.onSubmit}>
-                    <div className='input-group has-validation'>
-                        <input type="text"
-                            className={classNames_1}
-                            placeholder="Как его зовут?"
-                            name="name"
-                            value={name}
-                            onChange={this.onValueChange} />
-                        <div class="invalid-feedback">
-                            Name has to be more than 3 chars.
-                        </div>
+                    <input type="text"
+                        className="form-control new-post-label" 
+                        placeholder="Как его зовут?"
+                        name="name"
+                        value={name}
+                        onChange={this.onValueChange} />
+                    <div class="invalid-feedback">
+                        Name has to be more than 3 chars.
                     </div>
-                    <div className='input-group has-validation'>
-                        <input type="number"
-                            className={classNames_2}
-                            placeholder="З/П в $?"
-                            name="salary"
-                            value={salary}
-                            onChange={this.onValueChange} />
-                        <div class="invalid-feedback">
-                            Salary has to be more than 50$.
-                        </div>
+                    <input type="number"
+                        className="form-control new-post-label "
+                        placeholder="З/П в $?"
+                        name="salary"
+                        value={salary}
+                        onChange={this.onValueChange} />
+                    <div class="invalid-feedback">
+                        Salary has to be more than 50$.
                     </div>
-
                     <button type="submit"
                             className="btn btn-outline-light" >Добавить</button>
                 </form>
