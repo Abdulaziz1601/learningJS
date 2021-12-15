@@ -93,12 +93,22 @@ class App extends Component {
 		this.setState({term});
 	}
 
+	filterEmp = (data, prop) => {
+		if(prop === 'onRise') return data.filter(item => item.rise);
+		if(prop === 'bigSalary') return data.filter(item => item.salary > 1000);
+		return data;
+	}
+
+	onUpdateFilter = (prop) => {
+		this.setState({prop});
+	}
+
 	render() {
-		const {data, term} = this.state; 
+		const {data, term, prop} = this.state; 
 		const employees = this.state.data.length;
 		const prized = this.state.data.filter(item => item.prize).length;
 		const visibleData = this.searchEmp(data, term);
-
+		const filteredData = this.filterEmp(visibleData, prop)
 		return (
 			<div className="app">
 				<AppInfo 
@@ -107,11 +117,11 @@ class App extends Component {
 	
 				<div className="search-panel">
 					<SearchPanel onUpdateSearch={this.onUpdateSearch}/>
-					<AppFilter/>
+					<AppFilter onUpdateFilter={this.onUpdateFilter}/>
 				</div>
 				
 				<EmployeesList
-					data={visibleData}
+					data={filteredData}
 					onDelete={this.deleteItem}
 					onToggleProp={this.onToggleProp}
 					/>
