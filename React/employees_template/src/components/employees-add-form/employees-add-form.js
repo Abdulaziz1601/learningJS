@@ -31,7 +31,7 @@ class EmployeesAddForm extends Component{
         return (
             <div className="app-add-form">
                 <h3>Добавьте нового сотрудника</h3>
-                <form   
+                <form
                     className="add-form d-flex"
                     onSubmit={this.onSubmit}>
                     <input type="text"
@@ -40,18 +40,12 @@ class EmployeesAddForm extends Component{
                         name="name"
                         value={name}
                         onChange={this.onValueChange} />
-                    <div class="invalid-feedback">
-                        Name has to be more than 3 chars.
-                    </div>
                     <input type="number"
                         className="form-control new-post-label "
                         placeholder="З/П в $?"
                         name="salary"
                         value={salary}
                         onChange={this.onValueChange} />
-                    <div class="invalid-feedback">
-                        Salary has to be more than 50$.
-                    </div>
                     <button type="submit"
                             className="btn btn-outline-light" >Добавить</button>
                 </form>

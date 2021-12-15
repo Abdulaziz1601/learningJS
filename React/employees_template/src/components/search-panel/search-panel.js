@@ -15,7 +15,7 @@ class SearchPanel extends Component {
         this.setState({
             term: e.target.value
         });
-        this.props.onUpdateSearch(e.target.value);
+        this.props.onUpdateSearch(e.target.value); // e.target.value - gives error values
     }
 
     render() {
