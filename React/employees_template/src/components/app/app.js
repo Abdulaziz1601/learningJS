@@ -17,7 +17,8 @@ class App extends Component {
 				{name: 'Alex M.', salary: 5000, prize: true, rise: true, id: 2 },
 				{name: 'Jamez S.', salary: 2000, prize: false, rise: false, id: 3 }
 			],
-			term: ''
+			term: '',
+			filter: 'all'
 		};
 		this.maxId = 4;
 	}
@@ -68,17 +69,6 @@ class App extends Component {
 
 	}
 
-	// onToggleRise = (id) => {
-	// 	this.setState(({data}) => ({
-	// 		data: data.map(item => {
-	// 			if(item.id === id) {
-	// 				return {...item, rise: !item.rise}
-	// 			}
-	// 			return item;
-	// 		})
-	// 	}))
-	// }
-
 	searchEmp = (items, term) => {
 		if (term.length === 0) {
 			return items;
@@ -93,22 +83,27 @@ class App extends Component {
 		this.setState({term});
 	}
 
-	filterEmp = (data, prop) => {
-		if(prop === 'onRise') return data.filter(item => item.rise);
-		if(prop === 'bigSalary') return data.filter(item => item.salary > 1000);
-		return data;
+	filterPost = (items, filter) => {
+		switch (filter) {
+			case 'rise':
+				return items.filter(item => item.rise)
+			case 'moreThan1000':
+				return items.filter(item => item.salary > 1000)
+			default:
+				return items
+		}
 	}
 
-	onUpdateFilter = (prop) => {
-		this.setState({prop});
+	onFilterSelect = (filter) => {
+		this.setState({filter});
 	}
 
 	render() {
-		const {data, term, prop} = this.state; 
+		const {data, term, filter} = this.state; 
 		const employees = this.state.data.length;
 		const prized = this.state.data.filter(item => item.prize).length;
-		const visibleData = this.searchEmp(data, term);
-		const filteredData = this.filterEmp(visibleData, prop)
+		const filteredData = this.filterPost(this.searchEmp(data, term), filter);
+		
 		return (
 			<div className="app">
 				<AppInfo 
@@ -117,7 +112,9 @@ class App extends Component {
 	
 				<div className="search-panel">
 					<SearchPanel onUpdateSearch={this.onUpdateSearch}/>
-					<AppFilter onUpdateFilter={this.onUpdateFilter}/>
+					<AppFilter 
+						filter={filter}
+						onFilterSelect={this.onFilterSelect}/>
 				</div>
 				
 				<EmployeesList

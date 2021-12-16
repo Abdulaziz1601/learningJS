@@ -1,56 +1,31 @@
-import { Component } from "react";
-
 import "./app-filter.css";
 
-class AppFilter extends Component {
+const AppFilter = (props) => {
+    const buttonsData = [
+        {name: 'all', label: 'Все сотрудники'},
+        {name: 'rise', label: 'На повышение'},
+        {name: 'moreThan1000', label: 'З/П больше 1000$'}
+    
+    ];
+    
+    const buttons = buttonsData.map(({name, label}) => {
+        const active = props.filter === name;
+        const clazz = active ? "btn-light" : "btn-outline-light" ;
+        return ( 
+            <button type="button"
+                    className={`btn ${clazz}`}
+                    key={name}
+                    onClick={() => props.onFilterSelect(name)}>
+                    {label}
+            </button>
+        );
+    })
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            prop: 'all',
-            selected: '0'
-        };
-    } 
-
-    onFilterPropChange = (e) => {
-        this.setState({
-            prop: e.target.getAttribute('data-prop'),
-            selected: e.target.getAttribute('data-btnNum')
-        })
-        this.props.onUpdateFilter(e.target.getAttribute('data-prop'));
-    }
-
-    isActive = (num) => {
-        return 'btn ' + ( (parseInt(this.state.selected) === num)  ? 'btn-light' : 'btn-outline-light') 
-    }
-    render() {
-        return (
-            <div className="btn-group">
-                <button type="button"
-                        className={this.isActive(0)}
-                        data-prop="all"
-                        data-btnNum="0"
-                        onClick={this.onFilterPropChange}>
-                        Все сотрудники
-                </button>
-                <button type="button"
-                        className={this.isActive(1)}
-                        data-prop="onRise"
-                        data-btnNum="1"
-                        onClick={this.onFilterPropChange}>
-                        На повышение
-                </button>
-                <button type="button"
-                        className={this.isActive(2)}
-                        data-prop="bigSalary"
-                        data-btnNum="2"
-                        onClick={this.onFilterPropChange}>
-                        З/П больше 1000$
-                </button>
-            </div>
-        )
-    }
+    return (
+        <div className="btn-group">
+            {buttons}
+        </div>
+    )
 }
 
 export default AppFilter;
