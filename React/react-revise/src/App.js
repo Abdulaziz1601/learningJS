@@ -1,4 +1,4 @@
-import {Component} from 'react';
+import {Component, } from 'react';
 
 import './App.css';
 
@@ -32,7 +32,7 @@ class WhoAmI extends Component {
 		console.log(this);
 
 		return (
-			<div>
+			<>
 				<button onClick={this.nextYear}>{text}</button>	
 				<h1>My name is {name}, surname - {surname}, 
 					age - {years}, 
@@ -42,7 +42,7 @@ class WhoAmI extends Component {
 					<span>Vvedite doljnost</span>
 					<input type="text" onChange={(e) => this.commitInputChanges(e, 'SOMEcolor')}></input>
 				</form>
-			</div>
+			</>
 		);
 	}
 }
