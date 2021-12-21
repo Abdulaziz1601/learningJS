@@ -18,11 +18,24 @@ const EmpItem = styled.div `
 		display: block;
 		margin: 10px 0 10px 0;
 		color: ${props => props.active ? 'orange' : 'black'};
+		font-size: 1.3em;
+		text-align: center;
+		transition: all .2s;
+		&:hover {
+			color: #0d6efd;
+		}
 	}
+	
 	input {
 		display: block;
 		margin-top: 10px;
-
+		border: none;
+		border: 2px solid rgba(0, 0, 0, .2);
+		border-radius: 5px;
+		&:focus {
+			border: 1px solid rgba(155,255,87, .48);
+			outline: 4px solid rgba(155,255,87, .48);
+		}
 	}
 `;
 
