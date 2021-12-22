@@ -107,3 +107,7 @@ function accum(s) {
 }
 
 accum('abcdefg	 ')
+
+function doubleEveryOther(a) {
+	return a.map((elem, index) => (index+1) % 2 === 0 ? elem * 2 : elem); 
+}
