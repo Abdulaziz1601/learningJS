@@ -1,6 +1,5 @@
-import {
-	Component
-} from 'react';
+import React, {Component} from 'react';
+import BootstrapTest from './BootstrapTest';
 import styled from 'styled-components';
 
 import './App.css';
@@ -126,9 +125,36 @@ const Wrapper = styled.div `
 	margin: 80px auto 0 auto
 `;
 
+const DynamicGreeting  = (props) => {
+	return (
+		<div className={'mb-3 p-3 border border-' + props.color}>
+			{
+				React.Children.map(props.children, child => {
+					return React.cloneElement(child, {className: 'shadow p-3 m-3 border rounded'})
+				})
+			}
+		</div>
+
+	)
+}
+
 function App() {
 	return ( 
 		<Wrapper >
+			<BootstrapTest 
+				left= {
+					<DynamicGreeting color={'primary'}>
+						<h2>Hello Abdulaziz</h2>
+						<h2>Hello World</h2>
+					</DynamicGreeting>
+				}
+				right = {
+					<DynamicGreeting color={'primary'}>
+						<h2>RIGHT!</h2>
+					</DynamicGreeting>
+				}
+			/> 
+
 			<WhoAmI name='John' surname="Smith" link="google.com"/>
 			<WhoAmI name='Ali' surname="Smith" link="google.com"/>
 		</Wrapper>

@@ -6,7 +6,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App';
 import {Btn} from './App';
-import BootstrapTest from './BootstrapTest';
 
 // Here we can use inheritance, so we can reuse our simple btn and make Big btn out of it
 const BigBtn = styled(Btn)`
@@ -15,9 +14,8 @@ const BigBtn = styled(Btn)`
 `;
 ReactDOM.render(
     <StrictMode>
-      <App />,
-      <BigBtn as="a">Send Data</BigBtn>,
-      <BootstrapTest/>
+      <App />
+      <BigBtn as="a">Send Data</BigBtn>
     </StrictMode>,
   document.getElementById('root')
 );
