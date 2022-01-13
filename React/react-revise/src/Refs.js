@@ -6,22 +6,28 @@ class Form extends Component {
     constructor(props) {
         super(props);
         // // When REF is created for simple element
-        // this.myRef = React.createRef(); // DOM Tree we have a reference of input type["email"]
+        this.myRef = React.createRef(); // DOM Tree we have a reference of input type["email"]
+        // this.mySecondRef = React.createRef();
         
         // When REF is created for Component
-        this.myRef = React.createRef(); // We have an object in myRef
+        // this.myRef = React.createRef(); // We have an object in myRef
         
     }
 
-    componentDidMount() {
-        // For DOM element
-        // ref.current current reference to ref 
-        // this.myRef.focus(); // error won't work
-        // this.myRef.current.focus();
+    // componentDidMount() {
+    //     // For DOM element
+    //     // ref.current current reference to ref 
+    //     // this.myRef.focus(); // error won't work
+    //     this.myRef.current.focus();
 
-        // For Component
-        this.myRef.current.doSmth(); // We cannot use here DOM API for Component -> REF returns an object
+    //     // // For Component
+    //     // this.myRef.current.doSmth(); // We cannot use here DOM API for Component -> REF returns an object
         
+    // }
+
+    focusFirstTI = () => {
+        this.myRef.current.focus();
+
     }
 
     render() {
@@ -30,11 +36,16 @@ class Form extends Component {
                 <form className="w-50 border mt-5 p-3 m-auto">
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
-                        <TxtInput ref={this.myRef} />
+                        <input
+                            ref={this.myRef}
+                            type="email"
+                            className="form-control"
+                            id="exampleFormControlInput1"
+                            placeholder="name@example.com"/>
                     </div>
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
-                        <textarea className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        <textarea onClick={this.focusFirstTI} className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
                     </div>
                 </form>
             </Container>
