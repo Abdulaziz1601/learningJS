@@ -146,9 +146,71 @@ const HelloGreeting = () => {
 		</div>
 	)
 }
+
+const Message = (props) => {
+	return (
+		<h2>The counter is {props.counter}</h2>
+	);
+}
+
+const DarkMessage = ({counter}) => {
+	return (
+		<h2 style={{'backgroundColor': 'black', 'color': 'white'}}>
+			The dark counter is {counter}
+		</h2>
+	)
+}
+
+class Counter extends Component {
+	state = {
+		counter: 0
+	}
+
+	changeCounter = ( ) => {
+		this.setState(({counter}) => ({
+			counter: counter + 1
+		}))
+	}
+
+	render() {
+		return (
+			<>
+				{/* This will hardly bound our Counter to Message component */}
+				{/* So that if we need another component with out message component we have to creaet "copy/paste" Counter COmponent */}
+				{/* <Message counter={this.state.counter} /> */}
+				<button
+					className={'btn btn-primary m-2 '}
+					onClick={this.changeCounter}>
+						CLick Me
+				</button>
+				{/* Here our func will return Message component that we passed dynamically with props */}
+				{this.props.render(this.state.counter)}
+			</>
+		)
+	}
+}
+
+
 function App() {
 	return ( 
 		<Wrapper >
+			
+			<Counter render={counter  => (
+				<Message counter={counter} />
+			)}/>
+
+			<br />
+			<br />
+
+			{/* Here our Counter component is so dynamic */}
+			{/* That we can pass another component through it and it works properly */}
+			<Counter render={counter  => (
+				<DarkMessage counter={counter} />
+			)}/>
+
+			<br />
+			<br />
+
 			<HelloGreeting/>  
 			<BootstrapTest 
 				left= {
