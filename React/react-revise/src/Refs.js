@@ -3,14 +3,20 @@ import {Container} from 'react-bootstrap';
 import './App.css';
 
 class Form extends Component {
+    // eslint-disable-next-line
     constructor(props) {
         super(props);
-        // // When REF is created for simple element
-        this.myRef = React.createRef(); // DOM Tree we have a reference of input type["email"]
-        // this.mySecondRef = React.createRef();
+        // Standard way of creating ref
+        // // // When REF is created for simple element
+        // this.myRef = React.createRef(); // DOM Tree we have a reference of input type["email"]
+        // // this.mySecondRef = React.createRef();
         
-        // When REF is created for Component
-        // this.myRef = React.createRef(); // We have an object in myRef
+        // // When REF is created for Component
+        // // this.myRef = React.createRef(); // We have an object in myRef
+    }
+    // Callback REF
+    setInputRef = (elem) => {
+        this.myRef = elem;
         
     }
 
@@ -26,7 +32,10 @@ class Form extends Component {
     // }
 
     focusFirstTI = () => {
-        this.myRef.current.focus();
+        // THere WON'T be current while we're using callback REF
+        if(this.myRef) {
+            this.myRef.focus();
+        }
 
     }
 
@@ -37,7 +46,11 @@ class Form extends Component {
                     <div className="mb-3">
                         <label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
                         <input
-                            ref={this.myRef}
+                            // ref={this.myRef}
+                            // creating REF with CallBack
+                            // setInputRef will take the elem that called i.e input
+                            // and will write it to this.myRef
+                            ref ={ this.setInputRef}
                             type="email"
                             className="form-control"
                             id="exampleFormControlInput1"
