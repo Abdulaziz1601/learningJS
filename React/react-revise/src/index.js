@@ -4,7 +4,8 @@ import styled from 'styled-components';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
-import Refs from './Refs';
+// import Refs from './Refs';
+import Portals from './Portals';
 // import {Btn} from './App';
 
 // Here we can use inheritance, so we can reuse our simple btn and make Big btn out of it
@@ -14,7 +15,7 @@ import Refs from './Refs';
 // `;
 ReactDOM.render(
     <StrictMode>
-      <Refs />
+      <Portals />
     </StrictMode>,
   document.getElementById('root')
 );
