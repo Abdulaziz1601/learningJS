@@ -1,4 +1,4 @@
-import {Component, useState, useEffect, useCallback} from 'react';
+import {Component, useState, useEffect, useCallback, useMemo} from 'react';
 import {Container} from 'react-bootstrap';
 import './App.css';
 // class Slider extends Component {
@@ -53,7 +53,10 @@ import './App.css';
 //         )
 //     }
 // }
-
+const countTotal = (num) => {
+    console.log('Counting...');
+    return num +  10;
+}
 const Slider = (props) => {
     // Destructurin an array   setting slide to zero
     const [slide, setSlide] = useState(0); // returns array of two elems: 1-st elem -- state, 2nd elem -- function that will change that state
@@ -98,20 +101,24 @@ const Slider = (props) => {
         setAutoplay(autoplay => !autoplay);
     }
     
-    return (
+    const total = useMemo(() => { // useMemo helps us to cache values, whereas useCallback caches function
+        return countTotal(slide);
+    }, [slide]);
+
+    const style = useMemo(() => ({
+        color: slide > 4 ? 'red' : 'black'
+    }), [slide])
+
+    useEffect(() => {
+        console.log("Style Changed")
+    }, [style])
+
+    return ( 
         <Container>
             <div className="slider w-50 m-auto">
-                {/* {
-                    getSomeImages().map((url, i) => {
-                        return (
-                            <img key={i} className="d-block w-100" src={url} alt="slide" />
-                        )
-                    })
-                } */}
-
                 <Slide getSomeImages = {getSomeImages}/>
-
                 <div className="text-center mt-5">Active slide {slide} <br/> </div>
+                <div style={style} className="text-center mt-5">Total Slides: {total}</div>
                 <div className="text-center mt-5">{autoplay ? 'AutopPlay' : null} <br/> </div>
                 <div className="buttons mt-3">
                     <button 
