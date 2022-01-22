@@ -1,4 +1,4 @@
-import {Component, useState, useEffect} from 'react';
+import {Component, useState, useEffect, useCallback} from 'react';
 import {Container} from 'react-bootstrap';
 import './App.css';
 // class Slider extends Component {
@@ -59,27 +59,36 @@ const Slider = (props) => {
     const [slide, setSlide] = useState(0); // returns array of two elems: 1-st elem -- state, 2nd elem -- function that will change that state
     const [autoplay, setAutoplay] = useState(false);
     
-    function logging () {
+    // To use memoized function (cached) we use useCallback hook
+    const getSomeImages = useCallback(() => {
+        console.log("Fetching...");
+        return [
+            "https://imgv3.fotor.com/images/homepage-feature-card/Fotor-AI-photo-enhancement-tool.jpg",
+            "https://iso.500px.com/wp-content/uploads/2016/03/stock-photo-142984111.jpg"
+        ];
+    }, [slide]);
+
+    function logging () {   
         console.log('log!');
     }
 
-    useEffect(() => {
-        console.log('effect');
-        document.title = `Slide: ${slide}`; // this callback is memorized
-        // and attached to this component, will run after component will render
-        // also, It will callback will be envoked every time It will update 
-        window.addEventListener('click', logging); // after adding Ev.Listener we have to remove IT
+    // useEffect(() => {
+    //     console.log('effect');
+    //     document.title = `Slide: ${slide}`; // this callback is memorized
+    //     // and attached to this component, will run after component will render
+    //     // also, It will callback will be envoked every time It will update 
+    //     window.addEventListener('click', logging); // after adding Ev.Listener we have to remove IT
 
-        return () => {
-            window.removeEventListener('click', logging); // It will be removeed 
-        }
-    }, [slide]); // array of dependencies, useEffect depend on slide state only, our useEffect callback run only if slide'll be changed
-    // Also we emulate lifecycle hook, by writing empty array, so it will run only in at start
-    // Thus,  we just merge two LIFECYCLE hooks
+    //     return () => {
+    //         window.removeEventListener('click', logging); // It will be removeed 
+    //     }
+    // }, [slide]); // array of dependencies, useEffect depend on slide state only, our useEffect callback run only if slide'll be changed
+    // // Also we emulate lifecycle hook, by writing empty array, so it will run only in at start
+    // // Thus,  we just merge two LIFECYCLE hooks
 
-    useEffect(() => {
-        console.log("Autoplay is Changed");
-    }, [autoplay]  )
+    // useEffect(() => {
+    //     console.log("Autoplay is Changed");
+    // }, [autoplay])
 
     function changeSlide(i) {
         setSlide(slide => slide+i)
@@ -92,7 +101,16 @@ const Slider = (props) => {
     return (
         <Container>
             <div className="slider w-50 m-auto">
-                <img className="d-block w-100" src="https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg" alt="slide" />
+                {/* {
+                    getSomeImages().map((url, i) => {
+                        return (
+                            <img key={i} className="d-block w-100" src={url} alt="slide" />
+                        )
+                    })
+                } */}
+
+                <Slide getSomeImages = {getSomeImages}/>
+
                 <div className="text-center mt-5">Active slide {slide} <br/> </div>
                 <div className="text-center mt-5">{autoplay ? 'AutopPlay' : null} <br/> </div>
                 <div className="buttons mt-3">
@@ -111,6 +129,25 @@ const Slider = (props) => {
     )
 }
 
+const Slide = ({getSomeImages}) => {
+    const [images, setImages] = useState([]);
+
+    useEffect(() => {
+        setImages(getSomeImages());
+    }, [getSomeImages]);
+
+    return (
+        <>
+            {
+                images.map((url, i) => {
+                    return (
+                        <img key={i} className="d-block w-100" src={url} alt="slide" />
+                    )
+                })
+            }
+        </>
+    )
+}
 
 function App() {
     const [slider, setSlider] = useState(true);
