@@ -1,95 +1,150 @@
-import React, {Component} from 'react';
-import {Container} from 'react-bootstrap'; 
-import './App.css';
+import { useState, useEffect, useRef } from 'react';
+import PropTypes from 'prop-types';
+import MarvelService from '../../services/MarvelService';
+import Error from '../error/Error'
+import Spinner from '../spinner/Spinner';
 
-class Form extends Component {
-    // eslint-disable-next-line
-    constructor(props) {
-        super(props);
-        // Standard way of creating ref
-        // // // When REF is created for simple element
-        // this.myRef = React.createRef(); // DOM Tree we have a reference of input type["email"]
-        // // this.mySecondRef = React.createRef();
-        
-        // // When REF is created for Component
-        // // this.myRef = React.createRef(); // We have an object in myRef
-    }
-    // Callback REF
-    setInputRef = (elem) => {
-        this.myRef = elem;
-        
-    }
+import './charList.scss';
 
-    // componentDidMount() {
-    //     // For DOM element
-    //     // ref.current current reference to ref 
-    //     // this.myRef.focus(); // error won't work
-    //     this.myRef.current.focus();
+const CharList = (props) => {
 
-    //     // // For Component
-    //     // this.myRef.current.doSmth(); // We cannot use here DOM API for Component -> REF returns an object
-        
+    // state = {
+    //     chars:[],
+    //     error: false,
+    //     loading: true,
+    //     newItemLoading: false,
+    //     offset: 210,
+    //     charEnded: false
     // }
 
-    focusFirstTI = () => {
-        // THere WON'T be current while we're using callback REF
-        if(this.myRef) {
-            this.myRef.focus();
+    const [chars, setChars] = useState([]);
+    const [error, setError] = useState(false);
+    const [loading, setLoading] = useState(true);
+    const [newItemLoading, setNewItemLoading] = useState(false);
+    const [offset, setOffset] = useState(210);
+    const [charEnded, setCharEnded] = useState(false); 
+
+    const marvelService = new MarvelService();
+
+    // componentDidMount() {
+    //     this.onRequest();
+    // }
+    useEffect(() => {
+        onRequest();
+    }, []);
+
+    const onRequest = (offset) => {
+        onCharListLoading();
+        marvelService.getAllCharacters(offset)
+            .then(onCharsLoaded)
+            .catch(onError);
+    }
+ 
+    const onCharListLoading = () => {
+        setNewItemLoading(true)
+    }
+
+    const onCharsLoaded = (newChars) => {
+        let ended = false;
+        if(newChars.length < 9) {
+            ended = true;
         }
-
+        setChars((chars) => [...chars, ...newChars]);
+        setLoading(false);
+        setNewItemLoading(false);
+        setOffset(offset => offset+9);
+        setCharEnded(ended);
+        // this.setState(({chars, offset}) => ({
+        //     chars: [...chars, ...newChars],
+        //     loading: false,
+        //     newItemLoading: false, 
+        //     offset: offset + 9,
+        //     charEnded: ended
+        // }));
     }
 
-    render() {
+    const onError = () => {
+        setError(true);
+        setLoading(false)
+    }
+
+    const handleSelect = (e, id) => {
+        props.onCharSelected(id);
+        document.querySelectorAll('.char__item').forEach(item => {
+            if (item.classList.contains('char__item_selected')) {
+                item.classList.remove('char__item_selected');
+            }
+        });
+        
+        if (e.target.parentElement.classList.contains('char__item') && !e.target.parentElement.classList.contains('char__item_selected') ) {
+            e.target.parentElement.classList.add('char__item_selected');
+        }
+    }
+
+    // THis method is created for optimisation, bad practice to junk
+    // our code with big statement
+
+    const renderItems = (arr) => {
+        const items = arr.map(({name, thumbnail, id}, index) => {
+            const clazz = thumbnail.includes('not_available') ? 'img_fix' : null;
+            return (
+                <li 
+                    className="char__item"
+                    key={id}
+                    onClick={(e) => handleSelect(e, id)}>
+                        <img src={thumbnail} alt={`character of ${name}`} className={clazz}/>
+                        <div className="char__name">{name}</div>
+                </li>
+            )
+        });
+        // THis construction to center our spinner and errorMEssage
         return (
-            <Container>
-                <form className="w-50 border mt-5 p-3 m-auto">
-                    <div className="mb-3">
-                        <label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
-                        <input
-                            // ref={this.myRef}
-                            // creating REF with CallBack
-                            // setInputRef will take the elem that called i.e input
-                            // and will write it to this.myRef
-                            ref ={ this.setInputRef}
-                            type="email"
-                            className="form-control"
-                            id="exampleFormControlInput1"
-                            placeholder="name@example.com"/>
-                    </div>
-                    <div className="mb-3">
-                        <label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
-                        <textarea onClick={this.focusFirstTI} className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-                    </div>
-                </form>
-            </Container>
-        )
+            <ul className="char__grid">
+                {items}
+            </ul>
+        );
     }
-}
 
-class TxtInput extends Component {
-    doSmth = () => {
-        console.log("Ref called a method do somthing");
-    }
-    render() {
-        return (
-            <input
-                type="email"
-                className="form-control"
-                id="exampleFormControlInput1"
-                placeholder="name@example.com"/>
-        )
-    }
-}
+    // onNewCharsLoaded = () => {
+    //     this.setState((state) => {
+    //         return {
+    //             limit: state.limit*2,
+    //             loading: true
+    //         }
+    //     })
+    // }
 
-// const TxtInput = () => {
-//     // We cannot assign a ref for the functional component, 'cause they can't create instances 
-//     return <input type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com"/>
-// }
+    // componentDidUpdate(_, prevState) {
+    //     if(this.state.limit !== prevState.limit) {
+    //         this.marvelService.getAllCharacters(this.state.limit)
+    //         .then(this.onCharsLoaded)
+    //         .catch(this.onError);
+    //     }
+    // }
+    let items = renderItems(chars);
 
-function App() {
+    const errorMessage = error ? <Error/> : null;
+    const spinner = loading ? <Spinner/> : null;
+    const content = !(error || loading) ? items : null;
+    // const newContentSpinner = newItemLoading ? "Loading..." : null;
     return (
-        <Form/>
-    );
+        <div className="char__list">
+            {errorMessage}
+            {spinner}
+            {content}
+            {/* {newContentSpinner} */}
+            <button 
+                className="button button__main button__long"
+                disabled={newItemLoading}
+                onClick={() => onRequest(offset)}
+                style={{'display': charEnded ? "none": 'block'}}>
+                    <div className="inner">load more</div>
+            </button>
+        </div>
+    )
 }
 
-export default App;
+CharList.propTypes = {
+    onCharSelected: PropTypes.func.isRequired,
+}
+export default CharList;
