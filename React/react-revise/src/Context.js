@@ -31,22 +31,29 @@ const Form = memo((props) => {
 class InputComponent extends Component {
     render() {
         return (
-            <Consumer>
-                {
-                    value => {
-                        return (
-                            <input
-                                value={value.mail}
-                                type='email'
-                                className="form-control"
-                                placeholder='name@example.com' />
-                        )
-                    }
-                }
-            </Consumer>
+            // <Consumer>
+            //     {
+            //         value => {
+            //             return (
+            //                 <input
+            //                     value={value.mail}
+            //                     type='email'
+            //                     className="form-control"
+            //                     placeholder='name@example.com' />
+            //             )
+            //         }
+            //     }
+            // </Consumer>
+            <input
+                value={this.context.mail}
+                type='email'
+                className="form-control"
+                placeholder='name@example.com' />
         )
     }
 }
+
+InputComponent.contextType = dataContext; 
 
 
 
