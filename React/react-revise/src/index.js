@@ -6,7 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 // import Refs from './Refs';
 // import Portals from './Portals';
-import Memo from './memo';
+import Context from './Context';
 // import {Btn} from './App';
 
 // Here we can use inheritance, so we can reuse our simple btn and make Big btn out of it
@@ -16,7 +16,7 @@ import Memo from './memo';
 // `;
 ReactDOM.render(
     <StrictMode>
-      <Memo />
+      <Context />
     </StrictMode>,
   document.getElementById('root')
 );
