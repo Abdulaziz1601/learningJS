@@ -1,6 +1,5 @@
 import {useState, useEffect} from 'react';
 import {Container} from 'react-bootstrap';
-import './App.css';
 
 // const f = (a) => {
 //     return (b) => {
@@ -25,7 +24,7 @@ import './App.css';
 const withSlider = (BaseComponent, getData) => {
     return (props) => {
         const [slide, setSlide] = useState(0);
-        const [autoplay, setAutoplay] = useState(false)
+        const [autoplay, setAutoplay] = useState(false);
     
         useEffect(() => {
             setSlide(getData());
@@ -39,9 +38,8 @@ const withSlider = (BaseComponent, getData) => {
                 {...props}
                 slide={slide}
                 autoplay={autoplay}
-                setSlide={setSlide}
+                changeSlide={changeSlide}
                 setAutoPlay={setAutoplay}/>;
-
     }
 }
 
@@ -49,6 +47,7 @@ const getDataFromFirstFetch = () => {return 10};
 const getDataFromSecondFetch = () => {return 20};
 
 const SliderFirst = (props) => {
+    // console.log(props.name) // Here we can use any props that is passed to our Component which is created with HOC
 
     // Deleting UNUSED functions and data 'cause we already defined them at withSlider component
     // const [slide, setSlide] = useState(0);
@@ -97,7 +96,7 @@ const SliderSecond = (props) => {
         <Container>
             <div className="slider w-50 m-auto">
                 <img className="d-block w-100" src="https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg" alt="slide" />
-                <div className="text-center mt-5">Active slide {props.slide} <br/>{aprops.utoplay ? 'auto' : null} </div>
+                <div className="text-center mt-5">Active slide {props.slide} <br/>{props.autoplay ? 'auto' : null} </div>
                 <div className="buttons mt-3">
                     <button 
                         className="btn btn-primary me-2"
@@ -107,18 +106,21 @@ const SliderSecond = (props) => {
                         onClick={() => props.changeSlide(1)}>+1</button>
                     <button 
                         className="btn btn-primary me-2"
-                        onClick={() => props.setAutoplay(autoplay => !props.autoplay)}>toggle autoplay</button>
+                        onClick={() => props.setAutoPlay(!props.autoplay)}>toggle autoplay</button>
                 </div>
             </div>
         </Container>
     )
 }
 
+const SliderWithFirstFetch = withSlider(SliderFirst, getDataFromFirstFetch);
+const SliderWithSecondFetch = withSlider(SliderSecond, getDataFromSecondFetch);
+
 function App() {
     return (
         <>
-            <SliderFirst/>
-            <SliderSecond/>
+            <SliderWithFirstFetch name={'name'} />
+            <SliderWithSecondFetch />
         </>
     );
 }
