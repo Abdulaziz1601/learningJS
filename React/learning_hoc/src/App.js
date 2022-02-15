@@ -116,9 +116,31 @@ const SliderSecond = (props) => {
 const SliderWithFirstFetch = withSlider(SliderFirst, getDataFromFirstFetch);
 const SliderWithSecondFetch = withSlider(SliderSecond, getDataFromSecondFetch);
 
+// 2ND WAY HOC with DIFFERENT Syntax
+const withLogger = WrappedComponent => props => {
+    useEffect(() => {
+        console.log("First Render!");
+    }, []);
+
+    return <WrappedComponent {...props} />;
+}
+
+
+
+// 2ND WAY HOC
+const Hello = () => {
+    return (
+        <h1>Hello</h1>
+    );
+}
+
+const HelloWithLogger = withLogger(Hello);
+
+
 function App() {
     return (
         <>
+            <HelloWithLogger /> 
             <SliderWithFirstFetch name={'name'} />
             <SliderWithSecondFetch />
         </>
