@@ -22,7 +22,11 @@ const Modal = (props) => {
     };
  
     return (
-        <Transition in={props.show} timeout={duration} >
+        <Transition 
+            in={props.show}
+            timeout={duration}
+            onEnter={() => props.setShowTrigger(false)}
+            onExited={() => props.setShowTrigger(true)}>  
             {state => (
                 <div
                     className="modal mt-5 d-block"
@@ -53,15 +57,17 @@ const Modal = (props) => {
 
 function App() {
     const [showModal, setShowModal] = useState(false);
-
+    const [showTrigger, setShowTrigger] = useState(true); 
     return (
         <Container>
             {/* RTG will control if our component will be shown or not */}
-            <Modal show={showModal} onClose={setShowModal}/>
-            <button 
+            <Modal show={showModal} onClose={setShowModal} setShowTrigger={setShowTrigger} />
+            {showTrigger ?
+                <button 
                 type="button" 
                 className="btn btn-warning mt-5"
-                onClick={() => setShowModal(true)}>Open Modal</button>
+                onClick={() => setShowModal(true)}>Open Modal</button> : 
+            null}
         </Container>
     );
 }
