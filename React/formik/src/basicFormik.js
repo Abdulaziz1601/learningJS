@@ -33,14 +33,13 @@ const Form = () => {
                 id="name"
                 name="name"
                 type="text"
-                // value={formik.values.name}
+                   // value={formik.values.name}
                 // onChange={formik.handleChange}
                 // // triggers when element loses Its focus
                 // onBlur={formik.handleBlur}
 
                 // Instead of writing those 3 lines above
                 { ...formik.getFieldProps("name") }
-                
             />
             {/* When name is interacted touched.name will be TRUE */}
             {formik.errors.name && formik.touched.name ? <div className="error">{formik.errors.name}</div> : null}
