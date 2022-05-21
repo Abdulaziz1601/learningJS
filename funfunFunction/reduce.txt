@@ -1,0 +1,6 @@
+Mark waffle iron 80 2
+Mark blender 200 1
+Mark knife 10 4
+Nikita waffle iron 80 1
+Nikita blender 10 2
+Nikita pot 20 3

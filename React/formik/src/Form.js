@@ -113,7 +113,7 @@ const CustomForm = () => {
                     id="text"
                     name="text"
                     as="textarea"/>
-                <ErrorMessage className="error" name="text" component="div"/>                
+                                     
                 {/* <label className="checkbox">
                     <Field
                         name="terms"

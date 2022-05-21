@@ -29,7 +29,7 @@ app.get('/api/courses', (req, res) => {
 
 app.post('/api/courses', (req, res) => {
 
-    const { error } = validateCourse(req.body);
+    const { error } = validateCourse(req.body); 
     if(error) {
         res.status(400).send(error.details[0].message);
         return ;
@@ -96,26 +96,3 @@ app.get('/api/courses/:id', (req, res) => {
 // });
 
  app.listen(3000);
-
-
-const data = [
-    {test : ['a', 'p', 'c', 'd', 'f']},
-    {test : ['a', 'j', 'c', 'k', 'f']},
-    {test : ['a', 'b', 'c', 'd', 'f']},
-    {test : ['l', 'q', 'n', 'j', 'f']},
-    {test : ['a', 'c', 'c', 'e', 'f']},
-    {test : ['a', 'b', 'c', 'd', 'f']},
-    {test : ['a', 'o', 'm', 'l', 'f']},
-];
-
-console.log(data);
-
-const arr = [];
-
-data.forEach(item => arr.push(...item.test));
-console.log(arr)
-const uElems = Array.from(new Set(arr)).sort();
-console.log(uElems);
-
-// Project budget planning App
-// 

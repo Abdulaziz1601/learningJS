@@ -23,10 +23,22 @@
             suggestions = document.querySelector('.suggestions'),
             cities = [];
 
-        fetch(endpoint)
-            .then(blob => blob.json()) // we have to convert from raw blob data to json, so that returns us json and we handle with "then"
-            .then(data => cities.push(...data)); // we spreaded into cities array 1000 length array
+        // fetch(endpoint)
+        //     .then(blob => blob.json()) // we have to convert from raw blob data to json, so that returns us json and we handle with "then"
+        //     .then(data => cities.push(...data)); // we spreaded into cities array 1000 length array
+        const req = async (url) => {
+            const res = await fetch(url);
+            
+            if(!res.ok) {
+                throw new Error("Something went wrong!");
+            }
+
+            return await res.json();
+        };
         
+        req(endpoint)
+            .then(arr => cities.push(...arr));
+
         function findMatches(wordToMatch, cities) {
             return cities.filter(place => {
                 // HEre we need to find, if city or state matches
