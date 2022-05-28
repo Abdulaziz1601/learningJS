@@ -92,3 +92,8 @@ root.render(
   <React.StrictMode>
   </React.StrictMode>
 );
+
+
+// pure function 
+// must return same result from the same input
+// do not have side effects i.e API calls, console.log, changing global variable inside pure function
