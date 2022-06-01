@@ -5,4 +5,4 @@ export const inc = () => { // name of this function is actionCreator
 	return {type: 'INC'}
 };
 export const dec = () => ({type: "DEC"});
-export const rand = (value) => ({type: "RAND", payload: value});
+export const rand = (value) => ({type: "RAND", payload: Math.floor(Math.random() * 10)});
