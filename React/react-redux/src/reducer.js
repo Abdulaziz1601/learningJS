@@ -1,4 +1,4 @@
-const initialState = { value: 1 };
+const initialState = { counter: 1 };
 
 // function reducer must be pure function
 // It means, reducer has to depent only on state and action
@@ -9,18 +9,18 @@ const reducer = (state = initialState, action) => {
 		case 'INC':
 			return {
 				...state,
-				value: state.value + 1
+				counter: state.counter + 1
 			};
 		case 'DEC':
 			return {
 				...state,
-				value: state.value - 1
+				counter: state.counter - 1
 			};
 		case 'RAND':
 			// We cannot write here random number generator, so we do it as a property of action object: payload
 			return {
 				...state,
-				value: state.value * action.payload
+				counter: state.counter * action.payload
 			};
 		default:
 			return state;

@@ -1,34 +1,23 @@
 import { Component } from 'react';
 import { connect } from 'react-redux'; 
-import * as actions from '../actions';
+import {inc, dec, rand} from '../actions';
+import { useSelector, useDispatch } from 'react-redux';
 
-// const Counter = ({counter, inc, dec, rand}) => {
-    // return (
-    //     <div className="jumbotron">
-    //         <h1>{counter}</h1>
-    //         <button onClick={dec} className="btn btn-primary">DEC</button>
-    //         <button onClick={inc} className="btn btn-primary">INC</button>
-    //         <button onClick={rand} className="btn btn-primary">RAND</button>
-    //     </div>
-    // );
-// };
+const Counter = () => {
 
-// Implementing with class
+    const counter = useSelector(state => state.counter);
+    const dispatch = useDispatch();
 
-class Counter extends Component {
-    render() {
-        const {counter, inc, dec, rand} = this.props;
-        return (
-            <div className="jumbotron">
-                <h1>{counter}</h1>
-                <button onClick={dec} className="btn btn-primary">DEC</button>
-                <button onClick={inc} className="btn btn-primary">INC</button>
-                <button onClick={rand} className="btn btn-primary">RAND</button>
-            </div>
-        )   
-    }
-}
-
+    return (
+        <div className="jumbotron">
+            <h1>{counter}</h1>
+            <button onClick={() => dispatch(dec())} className="btn btn-primary">DEC</button>
+            <button onClick={() => dispatch(inc())} className="btn btn-primary">INC</button>
+            <button onClick={() => dispatch(rand())} className="btn btn-primary">RAND</button>
+        </div>
+    );
+};
+  
 
 // Must be pure and synchronous function
 // Here we get properties for our component
@@ -45,5 +34,7 @@ const mapStateToProps = (state) => {
 
 
 
-export default connect(mapStateToProps, actions)(Counter);
+// export default connect(mapStateToProps, actions)(Counter);
+
+export default Counter;
 
