@@ -1,11 +1,5 @@
-import { useEffect } from 'react';
-import {useHttp} from '../../hooks/http.hook';
-import { useSelector, useDispatch } from 'react-redux';
-import { heroesFetched } from '../../actions';
-
-const HeroesListItem = ({name, description, element, id}) => {
-    const {request} = useHttp();
-
+const HeroesListItem = ({name, description, element, onDelete}) => {
+   
     let elementClassName;
 
     switch (element) {
@@ -25,26 +19,6 @@ const HeroesListItem = ({name, description, element, id}) => {
             elementClassName = 'bg-warning bg-gradient';
     }
 
-    const { heroes } = useSelector(state => state);
-    const dispatch = useDispatch();
-
-    const onDelete = (id) => {
-        console.log(id);
-        dispatch(heroesFetched(heroes.filter(item => item.id !== id)));
-    }
-    
-    useEffect(() => {
-        request(`http://localhost:3001/heroes/${1}`, 'DELETE')
-        .then(data =>  console.log(data))
-        .catch((err) => console.log(err));
-    }, []);
-    
-    
-
-
-
-    
-
     return (
         <li 
             className={`card flex-row mb-4 shadow-lg text-white ${elementClassName}`}>
@@ -58,7 +32,7 @@ const HeroesListItem = ({name, description, element, id}) => {
                 <p className="card-text">{description}</p>
             </div>
             <span className="position-absolute top-0 start-100 translate-middle badge border rounded-pill bg-light">
-                <button type="button" className="btn-close btn-close" onClick={() => onDelete(id)} aria-label="Close"></button>
+                <button type="button" className="btn-close btn-close" onClick={onDelete} aria-label="Close"></button>
             </span>
         </li>
     )
