@@ -1,4 +1,9 @@
+import { useEffect } from 'react';
+import {useHttp} from '../../hooks/http.hook';
+import { useDispatch, useSelector} from 'react-redux';
+import Spinner from '../spinner/Spinner';
 
+import { activeFilterChanged, filtersError, filtersFetched, filtersFetching,  } from '../../actions';
 // Задача для этого компонента:
 // Фильтры должны формироваться на основании загруженных данных
 // Фильтры должны отображать только нужных героев при выборе
@@ -7,16 +12,46 @@
 // Представьте, что вы попросили бэкенд-разработчика об этом
 
 const HeroesFilters = () => {
+    const dispatch = useDispatch();
+    const {request} = useHttp();
+    const {filters, filtersLoadingStatus, activeFilter} = useSelector(state => state);
+
+    useEffect(() => {
+        dispatch(filtersFetching());
+        request("http://localhost:3001/filters")
+            .then(data =>  dispatch(filtersFetched(data)))
+            .catch(() => dispatch(filtersError()));
+
+        dispatch(activeFilterChanged('all'));
+    }, []);
+
+    console.log(activeFilter);
+    const renderFilters = (filtersArr) => {
+        return filtersArr.map(({name, label, className}) => (
+            <button
+                key={name}
+                id={name}
+                className={`btn ${className}`}
+                onClick={() => dispatch(activeFilterChanged(name))}
+            >
+                {label}
+            </button>
+        ));
+    }
+    const elements = renderFilters(filters);
+
+    if(filtersLoadingStatus === 'loading') {
+        return <Spinner />
+    } else if(filtersLoadingStatus === 'error') {
+        return <h5 className="text-center mt-5">Ошибка Filters</h5>
+    }
+
     return (
         <div className="card shadow-lg mt-4">
             <div className="card-body">
                 <p className="card-text">Отфильтруйте героев по элементам</p>
                 <div className="btn-group">
-                    <button className="btn btn-outline-dark active">Все</button>
-                    <button className="btn btn-danger">Огонь</button>
-                    <button className="btn btn-primary">Вода</button>
-                    <button className="btn btn-success">Ветер</button>
-                    <button className="btn btn-secondary">Земля</button>
+                    {elements}
                 </div>
             </div>
         </div>

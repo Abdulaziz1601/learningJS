@@ -24,4 +24,36 @@ export const heroDeleted = (id) => {
     }
 }
 
+export const filtersFetching = () => {
+    return {
+        type: 'FILTERS_FETCHING'
+    }
+}
+
+export const filtersError = () => {
+    return {
+        type: 'FILTERS_ERROR'
+    }
+}
+export const filtersFetched = (filters) => {
+    return {
+        type: 'FILTERS_FETCHED',
+        payload: filters
+    }
+}
+
+export const activeFilterChanged = (filter) => {
+    return {
+        type: "ACTIVE_FILTER_CHANGED",
+        payload: filter
+    }
+}
+
+// export const heroesFiltered = (filter) => {
+//     return {
+//         type: 'HEROES_FILTERED',
+//         payload: filter
+//     };
+// }
+
 
