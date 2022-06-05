@@ -49,6 +49,13 @@ export const activeFilterChanged = (filter) => {
     }
 }
 
+export const newHeroAdded = (newHero) => {
+    return {
+        type: "NEW_HERO_ADDED",
+        payload: newHero
+    }
+}
+
 // export const heroesFiltered = (filter) => {
 //     return {
 //         type: 'HEROES_FILTERED',

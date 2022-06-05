@@ -56,12 +56,12 @@ const reducer = (state = initialState, action) => {
                 activeFilter: action.payload,
                 filteredHeroes: action.payload === 'all' ? state.heroes : state.heroes.filter(hero => hero.element === action.payload)
             }
-        // case "HEROES_FILTERED":
-        //     const {data:heroes, filterName} = action.payload;
-        //     return {
-        //         ...state,
-        //         heroes: filterName !== 'all' ? heroes.filter(hero => hero.element === filterName) : heroes
-        //     }
+        case "NEW_HERO_ADDED":
+            return {
+                ...state,
+                heroes: [action.payload, ...state.heroes],
+                filteredHeroes: state.activeFilter === 'all' ? [action.payload, ...state.heroes] : [action.payload, ...state.heroes].filter(hero => hero.element === state.activeFilter)
+            }
         default: return state
     }
 }
