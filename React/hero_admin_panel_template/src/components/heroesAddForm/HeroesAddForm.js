@@ -1,5 +1,8 @@
-
-
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { newHeroAdded } from '../../actions';
+import {useHttp} from '../../hooks/http.hook';
+import {v4 as uuidv4} from 'uuid';
 // Задача для этого компонента:
 // Реализовать создание нового героя с введенными данными. Он должен попадать
 // в общее состояние и отображаться в списке + фильтроваться
@@ -10,21 +13,24 @@
 // Элементы <option></option> желательно сформировать на базе
 // данных из фильтров
 
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { newHeroAdded } from '../../actions';
 const HeroesAddForm = () => {
+    const {request} = useHttp();
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [element, setElement] = useState('');
     const dispatch = useDispatch();
-    
+    const { filters } = useSelector(state => state);
 
     const onFormSubmitted = (e) => {
-        const id = Math.random();
         e.preventDefault();
-        console.log(name, description, element);
-        dispatch(newHeroAdded({id, name, description, element}));
+
+        const id = uuidv4();
+        const newHero = {id, name, description, element};
+
+        request("http://localhost:3001/heroes", 'POST', JSON.stringify(newHero))
+            .then(() => dispatch(newHeroAdded(newHero)))
+            .catch((err) => console.log(err));
+
         setName('');
         setDescription('');
         setElement('');
@@ -66,11 +72,11 @@ const HeroesAddForm = () => {
                     name="element"
                     value={element}
                     onChange={(e) => setElement(e.target.value)}>
-                    <option >Я владею элементом...</option>
-                    <option value="fire">Огонь</option>
-                    <option value="water">Вода</option>
-                    <option value="wind">Ветер</option>
-                    <option value="earth">Земля</option>
+                    {
+                        filters.map(({label, name}, i) => i !== 0 ? 
+                            <option value={name}>{label}</option> :
+                            <option >Я владею элементом...</option>)
+                    }
                 </select>
             </div>
 

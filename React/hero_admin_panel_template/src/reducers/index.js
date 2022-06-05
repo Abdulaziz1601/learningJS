@@ -39,7 +39,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 filtersLoadingStatus: 'loading'
             }
-        case "FILTERS_ERROR":
+        case "FILTERS_FETCHING_ERROR":
             return {
                 ...state,
                 filtersLoadingStatus: 'error'
