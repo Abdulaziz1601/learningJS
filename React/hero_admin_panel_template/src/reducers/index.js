@@ -28,11 +28,14 @@ const reducer = (state = initialState, action) => {
             }
             
         case 'HERO_DELETED':
+            const newChangedHeroList = state.heroes.filter(item => item.id !== action.payload);
             return {
                 ...state,
-                heroes: state.heroes.filter(item => item.id !== action.payload),
-                filteredHeroes: state.activeFilter === 'all' ? state.heroes.filter(item => item.id !== action.payload) : state.heroes.filter(item => item.id !== action.payload).filter(hero => hero.element === state.activeFilter),
-                heroesLoadingStatus: 'idle'
+                heroes: newChangedHeroList,
+                heroesLoadingStatus: 'idle',
+                filteredHeroes: state.activeFilter === 'all' ?
+                                newChangedHeroList :
+                                newChangedHeroList.filter(hero => hero.element === state.activeFilter),
             }
         case "FILTERS_FETCHING":
             return {
@@ -54,13 +57,18 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 activeFilter: action.payload,
-                filteredHeroes: action.payload === 'all' ? state.heroes : state.heroes.filter(hero => hero.element === action.payload)
+                filteredHeroes: action.payload === 'all' ?
+                                state.heroes :
+                                state.heroes.filter(hero => hero.element === action.payload)
             }
-        case "NEW_HERO_ADDED":
+        case "HERO_CREATED":
+            const newHeroList = [...state.heroes, action.payload];
             return {
                 ...state,
-                heroes: [action.payload, ...state.heroes],
-                filteredHeroes: state.activeFilter === 'all' ? [action.payload, ...state.heroes] : [action.payload, ...state.heroes].filter(hero => hero.element === state.activeFilter)
+                heroes: newHeroList,
+                filteredHeroes: state.activeFilter === 'all' ?
+                                newHeroList :
+                                newHeroList.filter(hero => hero.element === state.activeFilter)
             }
         default: return state
     }

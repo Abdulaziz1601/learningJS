@@ -1,8 +1,3 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { newHeroAdded } from '../../actions';
-import {useHttp} from '../../hooks/http.hook';
-import {v4 as uuidv4} from 'uuid';
 // Задача для этого компонента:
 // Реализовать создание нового героя с введенными данными. Он должен попадать
 // в общее состояние и отображаться в списке + фильтроваться
@@ -12,29 +7,60 @@ import {v4 as uuidv4} from 'uuid';
 // Дополнительно:
 // Элементы <option></option> желательно сформировать на базе
 // данных из фильтров
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {useHttp} from '../../hooks/http.hook';
+import {v4 as uuidv4} from 'uuid';
+
+import { heroCreated } from '../../actions';
 
 const HeroesAddForm = () => {
-    const {request} = useHttp();
+    // Sates to make our form contolled
     const [name, setName] = useState('');
     const [description, setDescription] = useState('');
     const [element, setElement] = useState('');
+
+    const { filters, filtersLoadingStatus } = useSelector(state => state);
+    const {request} = useHttp();
     const dispatch = useDispatch();
-    const { filters } = useSelector(state => state);
+
 
     const onFormSubmitted = (e) => {
         e.preventDefault();
 
-        const id = uuidv4();
-        const newHero = {id, name, description, element};
+        const newHero = {
+            id: uuidv4(),
+            name,
+            description,
+            element
+        };
 
         request("http://localhost:3001/heroes", 'POST', JSON.stringify(newHero))
-            .then(() => dispatch(newHeroAdded(newHero)))
+            .then((res) => console.log(res, 'Send successfully'))
+            .then(dispatch(heroCreated(newHero)))
             .catch((err) => console.log(err));
 
         setName('');
         setDescription('');
         setElement('');
     }
+
+    const renderFilters  = (filters, status) => {
+        if (status === "loading") {
+            return <option>Загрузка элементов</option>
+        } else if (status === "error") {
+            return <option>Ошибка загрузки</option>
+        }
+
+        if(filters && filters.length > 0) {
+            return filters.map(({name, label}) => {
+                if(name === 'all') return ;
+                
+                return <option key={name} value={name}>{label}</option>
+            });
+        }
+    }
+
     return (
         <form className="border p-4 shadow-lg rounded" onSubmit={onFormSubmitted}>
             <div className="mb-3">
@@ -72,11 +98,8 @@ const HeroesAddForm = () => {
                     name="element"
                     value={element}
                     onChange={(e) => setElement(e.target.value)}>
-                    {
-                        filters.map(({label, name}, i) => i !== 0 ? 
-                            <option value={name}>{label}</option> :
-                            <option >Я владею элементом...</option>)
-                    }
+                        <option >Я владею элементом...</option>
+                        {renderFilters(filters, filtersLoadingStatus)}
                 </select>
             </div>
 

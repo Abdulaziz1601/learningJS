@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 import {useHttp} from '../../hooks/http.hook';
 import { useDispatch, useSelector} from 'react-redux';
 import Spinner from '../spinner/Spinner';
+import classNames from 'classnames';
 
 import { activeFilterChanged, filtersFetchingError, filtersFetched, filtersFetching,  } from '../../actions';
-import classNames from 'classnames';
 // Задача для этого компонента:
 // Фильтры должны формироваться на основании загруженных данных
 // Фильтры должны отображать только нужных героев при выборе
@@ -22,21 +22,17 @@ const HeroesFilters = () => {
         request("http://localhost:3001/filters")
             .then(data =>  dispatch(filtersFetched(data)))
             .catch(() => dispatch(filtersFetchingError()));
-
-        dispatch(activeFilterChanged('all'));
     }, []);
 
     const renderFilters = (filtersArr) => {
-        return filtersArr.map(({name, label, className}) => {
+            return filtersArr.map(({name, label, className}) => {
             const classes = classNames('btn', className, { active: activeFilter===name });
             return <button
                         key={name}
                         id={name}
                         className={classes}
                         onClick={() => dispatch(activeFilterChanged(name))}
-                    >
-                        {label}
-                    </button>
+                        >{label}</button>
         });
     }
     
