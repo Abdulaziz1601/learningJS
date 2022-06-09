@@ -15,11 +15,13 @@ export const fetchHeroes = (request) => (dispatch) => {
 
 export const heroesFetching = createAction('HEROES_FETCHING');
 
-export const heroesFetchingError = () => {
-    return {
-        type: 'HEROES_FETCHING_ERROR'
-    }
-}
+export const heroesFetchingError = createAction('HEROES_FETCHING_ERROR');
+
+// export const heroesFetchingError = () => {
+//     return {
+//         type: 'HEROES_FETCHING_ERROR'
+//     }
+// }
 
 // export const heroesFetched = (heroes) => {
 //     return {
@@ -31,12 +33,14 @@ export const heroesFetchingError = () => {
 // It works without function, when heroesFetched is called with some argument, argument automatically goes into payload
 export const heroesFetched = createAction('HEROES_FETCHED')
 
-export const heroDeleted = (id) => {
-    return {
-        type: 'HERO_DELETED',
-        payload: id
-    }
-}
+export const heroDeleted = createAction("HERO_DELETED");
+
+// export const heroDeleted = (id) => {
+//     return {
+//         type: 'HERO_DELETED',
+//         payload: id
+//     }
+// }
 
 export const fetchFilters = (request) => (dispatch) => {
     dispatch(filtersFetching());
@@ -51,11 +55,14 @@ export const filtersFetching = () => {
     }
 }
 
-export const filtersFetchingError = () => {
-    return {
-        type: 'FILTERS_FETCHING_ERROR'
-    }
-}
+export const filtersFetchingError = createAction('FILTERS_FETCHING_ERROR');
+
+// export const filtersFetchingError = () => {
+//     return {
+//         type: 'FILTERS_FETCHING_ERROR'
+//     }
+// }
+
 export const filtersFetched = (filters) => {
     return {
         type: 'FILTERS_FETCHED',
@@ -79,9 +86,11 @@ export const activeFilterChanged = (filter) => {
 //     }, 1000)
 // }
 
-export const heroCreated = (newHero) => {
-    return {
-        type: "HERO_CREATED",
-        payload: newHero
-    }
-}
+export const heroCreated = createAction("HERO_CREATED"); // payload is added automatically
+
+// export const heroCreated = (newHero) => {
+//     return {
+//         type: "HERO_CREATED",
+//         payload: newHero
+//     }
+// }
