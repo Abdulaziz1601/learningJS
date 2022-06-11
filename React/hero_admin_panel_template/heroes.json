@@ -1,5 +1,18 @@
 {
-  "heroes": [],
+  "heroes": [
+    {
+      "id": "6285b6a1-3172-43da-8f0c-2df99233d525",
+      "name": "New Herp",
+      "description": "asdasdoiasdoni",
+      "element": "fire"
+    },
+    {
+      "id": "e21a3c39-7b4c-491f-b0bb-29ec34efadf4",
+      "name": "kasndkjad",
+      "description": "asdasd",
+      "element": "fire"
+    }
+  ],
   "filters": [
     {
       "name": "all",
