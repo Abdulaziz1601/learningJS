@@ -1,9 +1,33 @@
 {
   "heroes": [
     {
-      "id": "6285b6a1-3172-43da-8f0c-2df99233d525",
-      "name": "New Herp",
-      "description": "asdasdoiasdoni",
+      "id": 1,
+      "name": "Первый герой",
+      "description": "Первый герой в рейтинге!",
+      "element": "fire"
+    },
+    {
+      "id": 2,
+      "name": "Неизвестный герой",
+      "description": "Скрывающийся в тени",
+      "element": "wind"
+    },
+    {
+      "id": 3,
+      "name": "Морской герой",
+      "description": "Как аквамен, но не из DC",
+      "element": "water"
+    },
+    {
+      "id": "aed46224-7a7a-404b-ae0f-ad3cf6ea6f4d",
+      "name": "asdasdkmk",
+      "description": "lmlamsdlakdm",
+      "element": "fire"
+    },
+    {
+      "id": "261534da-11eb-4ca4-8442-cde5cda11a14",
+      "name": "asd",
+      "description": "asldk",
       "element": "fire"
     }
   ],
