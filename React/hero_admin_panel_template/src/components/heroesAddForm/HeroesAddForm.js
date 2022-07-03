@@ -4,6 +4,7 @@ import {useHttp} from '../../hooks/http.hook';
 import {v4 as uuidv4} from 'uuid';
 
 import { heroCreated } from '../heroesList/heroesSlice'; 
+import { selectAll } from "../heroesFilters/filtersSlice";
 
 const HeroesAddForm = () => {
     // Sates to make our form contolled
@@ -11,7 +12,8 @@ const HeroesAddForm = () => {
     const [description, setDescription] = useState('');
     const [element, setElement] = useState('');
 
-    const { filters, filtersLoadingStatus } = useSelector(state => state.filters);
+    const { filtersLoadingStatus } = useSelector(state => state.filters);
+    const filters = useSelector(selectAll);
     const {request} = useHttp();
     const dispatch = useDispatch(); 
 
