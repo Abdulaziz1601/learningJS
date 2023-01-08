@@ -1,0 +1,35 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.grid-container {
+  display: grid;
+  /* grid-template-columns: repeat(3, minmax(100px, 300px)); */
+  /* grid-template-rows: repeat(3, minmax(100px, auto));  */
+  /* Works like flex-wrap: wrap; but easier to use */ 
+  /* grid-template-columns: repeat(auto-fill, minmax(100px, 300px)); */
+  /* Auto-Fit elements always fill the container, by widening the tracks if minmax() is used */
+  /* Auto-Fill  our element do not widen as in auto-fit */
+  /* Aut-Fill leaves empty space for future elements */
+  /* Aut-Fit does not leave empty space for future elements, by widening elements and taking all space */
+  grid-template-columns: repeat(3, minmax(150px, 300px));
+  grid-template-rows: repeat(3, minmax(100px, auto));
+  grid-auto-rows: minmax(100px, auto);
+  gap: 10px;
+  /* new tracks are added as new columns and also changes the order of elements as they show up in columnn order*/
+  grid-auto-flow: column;
+  /* If blank spaces are seen, they are filled with other elements */
+  /* grid-auto-flow: dense; */
+}
+
+.grid-elem {
+  background-color: rgba(1, 1, 96, 1);
+  color: #fff;
+  line-height: 50px;
+  text-align: center;
+  font-size: 26px;
+  border: 1px solid #000;
+  border-radius: 4px;
+}

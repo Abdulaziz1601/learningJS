@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.grid-container {
+  display: grid;
+  /* For columns */
+  /* Rows and Colums shorthand */
+  grid-template: 80px 80px 80px / 33% 33% 33%;
+  /* Gap between columns */
+  /* column-gap: 20px; */
+  /* Gap between rows */
+  /* row-gap: 10px; */
+  /* For rows */
+  /* Shorthand for both gaps */
+  gap: 20px;
+  /* grid-template-rows: 60px 60px 60px; */
+}
+
+.grid-elem {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(1, 1, 96, 1);
+  color: #fff;
+  line-height: 50px;
+  text-align: center;
+  font-size: 26px;
+  border: 1px solid #000;
+  border-radius: 4px;
+}
